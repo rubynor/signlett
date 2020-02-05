@@ -30,38 +30,38 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'haml-rails'     # Use haml instead of erb
-gem 'pry-rails'      # Pretty print in rails console and set debug breakpoints in server console
-gem 'honeybadger'    # honeybadger error reporting tool
 gem 'devise'         # Devise is a flexible authentication solution for Rails based on Warden
+gem 'haml-rails'     # Use haml instead of erb
+gem 'honeybadger'    # honeybadger error reporting tool
+gem 'pry-rails'      # Pretty print in rails console and set debug breakpoints in server console
 gem 'sidekiq'        # Background jobs
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
-  gem 'rspec-rails'  # Testing framework
+  gem 'bullet'       # Set env BULLET = true to activate. Bullet help to kill N+1 queries and unused eager loading
+  gem 'capybara'     # Write tests that simulate how your users will use your application
+  gem 'dotenv-rails' # Handle env vars
   gem 'fabrication'  # Test subject builder for the specs
   gem 'faker'        # Create dummy data for the test objects
-  gem 'guard-rspec', require: false # automatically run tests on changes
-  gem 'dotenv-rails' # Handle env vars
-  gem 'capybara'     # Write tests that simulate how your users will use your application
   gem 'foreman'      # To run app and webpack together
-  gem 'rubocop'      # code style rules
+  gem 'guard-rspec', require: false # automatically run tests on changes
   gem 'overcommit'   # Run Rubucop rules when committing
   gem 'parallel_tests' # rails parallel:spec to run specs in parallel
-  gem 'bullet'       # Set env BULLET = true to activate. Bullet help to kill N+1 queries and unused eager loading
+  gem 'rspec-rails'  # Testing framework
+  gem 'rubocop'      # code style rules
 end
 
 group :development do
