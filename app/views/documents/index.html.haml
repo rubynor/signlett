@@ -1,2 +1,10 @@
-%h1 Documents#index
-%p Find me in app/views/documents/index.html.haml
+= link_to 'Logg ut', destroy_user_session_path, method: :delete
+%h1 Documents
+- if @documents.is_a? Array
+  - @documents.each do |document|
+    = document.user.first_name
+    = link_to 'Show', document_path(document.id)
+- else
+  = @documents.user.first_name
+  = link_to 'Show', document_path(@documents.id)
+
