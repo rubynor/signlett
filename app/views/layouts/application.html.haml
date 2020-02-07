@@ -8,13 +8,13 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    .notice
-      = notice
-    .alert
-      = alert
     %header
       - if signed_in?
         = link_to 'Logg ut', destroy_user_session_path, method: :delete
         = link_to 'Rediger bruker', edit_user_registration_path
+    .notice
+      = notice
+    .alert
+      = alert
 
     = yield

@@ -44,6 +44,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'devise'         # Devise is a flexible authentication solution for Rails based on Warden
+gem 'graphql'        # Graphql for using vue
 gem 'haml-rails'     # Use haml instead of erb
 gem 'honeybadger'    # honeybadger error reporting tool
 gem 'pry-rails'      # Pretty print in rails console and set debug breakpoints in server console
@@ -65,6 +66,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'graphiql-rails'
   gem 'letter_opener'
   gem 'lol_dba' # 'rake db:find_indexes' to get hints about missing indexes. https://github.com/plentz/lol_dba
 end
