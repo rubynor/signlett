@@ -65,5 +65,6 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener'
   gem 'lol_dba' # 'rake db:find_indexes' to get hints about missing indexes. https://github.com/plentz/lol_dba
 end
