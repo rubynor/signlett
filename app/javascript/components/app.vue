@@ -1,10 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
+    <v-app-bar
+               dense
+              shrink-on-scroll
+              app>
+      <v-app-bar-title class="headline text-uppercase">
         <span>Vuetify</span>
         <span class="font-weight-lightweight">MATERIAL DESIGN</span>
-      </v-toolbar-title>
+      </v-app-bar-title>
     </v-app-bar>
   </v-app>
 </template>

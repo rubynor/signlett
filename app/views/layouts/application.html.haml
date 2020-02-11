@@ -17,7 +17,10 @@
       = notice
     .alert
       = alert
-    = yield
-    #vue-target
-      %app
 
+
+
+    .vue-target
+      - if signed_in?
+        %app
+      = yield
