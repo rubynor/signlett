@@ -8,6 +8,14 @@ module Types
       argument :id, ID, required: true
     end
 
+    field :documents, [DocumentType], null: false do
+      description "Find all documents in DB"
+    end
+
+    def documents
+      Document.all
+    end
+
     def find_user(id:)
       User.find(id)
     end
