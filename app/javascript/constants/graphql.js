@@ -1,12 +1,12 @@
 import gql from "graphql-tag/src";
 
 export const ALL_DOCUMENTS_QUERY = gql`
-  query Documents {
+  query allDocuments {
     documents {
         id
-        status
         userId
+        status
         filePath
     }
   }
-`
+`;

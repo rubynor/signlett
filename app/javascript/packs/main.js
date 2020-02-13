@@ -16,14 +16,16 @@ Vue.component('singup', SignupForm)
 
 // Configuration for apollo
 const httpLink = new HttpLink({
-    uri: 'https://localhost:3000/graphql'
+    uri: 'http://localhost:3000/graphql'
 });
+
+const cache = new InMemoryCache();
 
 const apolloClient = new ApolloClient({
     link: httpLink,
-    cache: new InMemoryCache(),
-    connectToDevTools: true
+    cache: cache
 });
+
 
 Vue.use(VueApollo)
 
@@ -37,7 +39,8 @@ const apolloProvider = new VueApollo({
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
         el: 'div.vue-target',
+        apolloProvider,
         vuetify,
-        apolloProvider
+
     })
 })

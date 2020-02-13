@@ -3,9 +3,11 @@
         <v-container>
             <v-data-table
                     :headers="headers"
-                    :items="allDocuments"
+                    :items="documents"
                     :items-per-page="5"
                     class="elevation-1"
+                    loading
+                    loading-text="Laster inn.. Vennligst vent"
             ></v-data-table>
         </v-container>
     </span>
@@ -13,24 +15,24 @@
 
 <script>
     import { ALL_DOCUMENTS_QUERY } from "../constants/graphql";
-
+    import gql from 'graphql-tag'
     export default {
+        name: 'DocumentList',
         data() {
             return {
                 headers: [
                     {text: 'Dokument id', value: 'id'},
                     {text: 'Status signering', value: 'status'},
-                    {text: 'Laget av', value: 'user_id'},
-                    {text: 'Åpne dokument', value: 'file_path'},
+                    {text: 'Laget av', value: 'userId'},
+                    {text: 'Åpne dokument', value: 'filePath'},
 
                 ],
-                allDocuments: [],
-                loading: 0
+                documents: []
 
             }
         },
         apollo: {
-            allDocuments: {
+            documents: {
                 query: ALL_DOCUMENTS_QUERY
             }
         }
