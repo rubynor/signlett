@@ -3,7 +3,7 @@
         <v-container>
             <v-data-table
                     :headers="headers"
-                    :items="documents"
+                    :items="findAllDocuments"
                     :items-per-page="5"
                     class="elevation-1"
                     loading
@@ -23,16 +23,16 @@
                 headers: [
                     {text: 'Dokument id', value: 'id'},
                     {text: 'Status signering', value: 'status'},
-                    {text: 'Laget av', value: 'userId'},
+                    {text: 'Laget av', value: 'user.email'},
                     {text: 'Åpne dokument', value: 'filePath'},
 
                 ],
-                documents: []
+                findAllDocuments: []
 
             }
         },
         apollo: {
-            documents: {
+            findAllDocuments: {
                 query: ALL_DOCUMENTS_QUERY
             }
         }

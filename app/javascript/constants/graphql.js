@@ -1,10 +1,14 @@
 import gql from "graphql-tag/src";
 
 export const ALL_DOCUMENTS_QUERY = gql`
-  query allDocuments {
-    documents {
+  query documents{
+    findAllDocuments {
         id
-        userId
+        user{
+            firstName
+            lastName
+            email
+        }
         status
         filePath
     }
