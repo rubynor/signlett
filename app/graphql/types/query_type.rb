@@ -16,6 +16,10 @@ module Types
       description "Find all users"
     end
 
+    field :user_logged_in, UserType, null: false do
+      description "Get current logged in user"
+    end
+
     def users
       User.all
     end
@@ -27,5 +31,10 @@ module Types
     def find_user(id:)
       User.find(id)
     end
+
+    def user_logged_in
+      context[:current_user]
+    end
+
   end
 end

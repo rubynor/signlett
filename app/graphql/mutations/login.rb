@@ -6,7 +6,7 @@ module Mutations
     type Types::UserType
 
     def resolve(email:, password:)
-      sign_in(email, password)
+
     end
   end
 end

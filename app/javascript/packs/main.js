@@ -5,6 +5,7 @@ import Vue from 'vue/dist/vue.esm'
 import vuetify from "../plugins/vuetify";
 import 'vuetify/dist/vuetify.min.css'
 import VueApollo from 'vue-apollo'
+import store from "../store"
 
 // Components
 import App from '../components/app.vue'
@@ -12,7 +13,7 @@ import LoginForm from '../components/login_form'
 import SignupForm from '../components/signup_form'
 Vue.component('app', App)
 Vue.component('login', LoginForm)
-Vue.component('singup', SignupForm)
+Vue.component('signup', SignupForm)
 
 // Configuration for apollo
 const httpLink = new HttpLink({
@@ -38,6 +39,7 @@ const apolloProvider = new VueApollo({
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
+        store,
         el: 'div.vue-target',
         apolloProvider,
         vuetify,

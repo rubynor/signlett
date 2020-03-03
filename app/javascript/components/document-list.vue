@@ -6,7 +6,6 @@
                     :items="findAllDocuments"
                     :items-per-page="5"
                     class="elevation-1"
-                    loading
                     loading-text="Laster inn.. Vennligst vent"
             ></v-data-table>
         </v-container>
