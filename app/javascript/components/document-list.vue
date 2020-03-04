@@ -3,7 +3,7 @@
         <v-container>
             <v-data-table
                     :headers="headers"
-                    :items="findAllDocuments"
+                    :items="documentForUser"
                     :items-per-page="5"
                     class="elevation-1"
                     loading-text="Laster inn.. Vennligst vent"
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import { ALL_DOCUMENTS_QUERY } from "../constants/graphql";
+    import {ALL_DOCUMENTS_QUERY, CURRENT_USER, DOCUMENT_FOR_USER} from "../constants/graphql";
     import gql from 'graphql-tag'
     export default {
         name: 'DocumentList',
@@ -26,13 +26,13 @@
                     {text: 'Åpne dokument', value: 'filePath'},
 
                 ],
-                findAllDocuments: []
+                documentForUser: []
 
             }
         },
         apollo: {
-            findAllDocuments: {
-                query: ALL_DOCUMENTS_QUERY
+            documentForUser: {
+                query: DOCUMENT_FOR_USER
             }
         }
     }

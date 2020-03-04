@@ -16,5 +16,8 @@
         = link_to 'Logg ut', destroy_user_session_path, method: :delete
         = link_to 'Rediger bruker', edit_user_registration_path
 
-    = yield
     .vue-target
+      - if signed_in?
+        %app
+      - else
+        = yield
