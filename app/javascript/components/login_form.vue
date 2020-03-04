@@ -1,15 +1,16 @@
 <template>
     <v-app>
-        <v-form class="color">
+        <v-form>
             <v-container>
+                <p class="title font-weight-light text-center">Logg inn</p>
+
                 <v-row justify="center">
                     <v-col
                             cols="12"
                             md="4"
+                            xs="12"
                     >
                         <v-text-field
-                                v-model="email"
-                                :rules="emailRules"
                                 label="E-post"
                                 solo
                                 required
@@ -22,8 +23,6 @@
                             md="4"
                     >
                         <v-text-field
-                                v-model="password"
-                                :rules="password"
                                 label="Passord"
                                 solo
                                 required
@@ -45,8 +44,23 @@
                 </v-row>
             </v-container>
         </v-form>
+        <div class="font-weight-thin display-2">
+            <document-list></document-list>
+        </div>
     </v-app>
 </template>
+
+<script>
+    import DocumentList from './document-list'
+
+    export default {
+        name: 'login',
+        components: {
+            DocumentList
+        }
+
+    }
+</script>
 
 <style scoped>
 

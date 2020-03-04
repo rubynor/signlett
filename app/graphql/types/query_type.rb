@@ -8,8 +8,33 @@ module Types
       argument :id, ID, required: true
     end
 
+    field :find_all_documents, [DocumentType], null: false do
+      description "Find all documents in DB"
+    end
+
+    field :users, [UserType], null: false do
+      description "Find all users"
+    end
+
+    field :user_logged_in, UserType, null: false do
+      description "Get current logged in user"
+    end
+
+    def users
+      User.all
+    end
+
+    def find_all_documents
+      Document.all
+    end
+
     def find_user(id:)
       User.find(id)
     end
+
+    def user_logged_in
+      context[:current_user]
+    end
+
   end
 end

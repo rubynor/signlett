@@ -1,0 +1,72 @@
+<template>
+    <v-app>
+        <v-form>
+        <v-container>
+            <v-row
+            justify="center"
+            >
+
+                    <v-col
+                        cols="12"
+                        md="4"
+                    >
+                        <v-text-field
+                            label="Fornavn"
+                            counter="10"
+                            required
+                            solo
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                            cols="12"
+                            md="4"
+                    >
+                        <v-text-field
+                                label="Etternavn"
+                                counter="10"
+                                required
+                                solo
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                            cols="12"
+                            md="4"
+                    >
+                        <v-text-field
+                                label="E-post"
+                                required
+                                solo
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                            cols="12"
+                            md="4"
+                    >
+                        <v-text-field
+                                label="Passord"
+                                counter="6"
+                                required
+                                solo
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                            cols="12"
+                            md="4"
+                    >
+                        <v-text-field
+                                label="Gjenta passord"
+                                counter="6"
+                                required
+                                solo
+                        ></v-text-field>
+                    </v-col>
+            </v-row>
+        </v-container>
+        </v-form>
+
+    </v-app>
+</template>
+
+<script>
+
+</script>

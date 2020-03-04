@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def index
     @documents = Document.find_by_user_id(current_user)
   end

@@ -1,0 +1,28 @@
+/ Compiled and minified CSS
+%link{:href => "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css", :rel => "stylesheet"}/
+/ Compiled and minified JavaScript
+%script{:src => "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"}
+%link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
+.container
+  .notice.red-text
+  = notice
+  .alert.red-text
+    = alert
+
+.container
+  = form_tag session_path(:user) do
+    .card.horizontal
+      .card-content.blue-grey.darken-4.center-align
+        %i.large.material-icons.white-text
+          send
+        %h2.white-text
+          Signaturlett
+        %p.white-text
+
+      .card-stacked
+        .card-content
+          = text_field_tag 'user[email]', "", placeholder: "E-post"
+          = password_field_tag 'user[password]', "", placeholder: "Passord"
+          %button.btn.indigo.darken-2 Sign in
+        .card-content
+          = render 'devise/shared/links'
