@@ -12,12 +12,10 @@
     %link{:href => "https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css", :rel => "stylesheet"}/
   %body
     %header
-      - if signed_in?
-        = link_to 'Logg ut', destroy_user_session_path, method: :delete
-        = link_to 'Rediger bruker', edit_user_registration_path
 
-    .vue-target
       - if signed_in?
-        %app
+        .vue-target
+          %app
       - else
         = yield
+        .vue-target

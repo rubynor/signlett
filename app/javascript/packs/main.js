@@ -3,7 +3,7 @@ import vuetify from "../plugins/vuetify";
 import 'vuetify/dist/vuetify.min.css'
 import VueApollo from 'vue-apollo'
 import store from "../store"
-
+import { router } from "./routes";
 // Components
 import App from '../components/app.vue'
 import LoginForm from '../components/login_form'
@@ -22,6 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el: 'div.vue-target',
         apolloProvider,
         vuetify,
-
+        router
     })
 })

@@ -19,6 +19,7 @@
         <v-list-item
           v-for="item in items"
           :key="item.title"
+          :to="item.route"
           @click=""
         >
           <v-list-item-icon>
@@ -29,9 +30,23 @@
             <v-list-item-title> {{ item.title }} </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item
+          @click="logout"
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-logout-variant</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              Logg ut
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
+
     </v-navigation-drawer>
-    <document-list />
+    <router-view></router-view>
   </v-app>
 </template>
 
@@ -39,17 +54,26 @@
 import DocumentList from './document-list'
 
 export default {
-  data: function () {
+  data(){
     return {
       items: [
-        {title: 'Mine dokumenter', icon: 'mdi-home-city'},
-        {title: 'Profil', icon: 'mdi-account'},
-        {title: 'Logg ut', icon: 'mdi-logout-variant'}
+        {title: 'Mine dokumenter', icon: 'mdi-home-city', route: '/documents'},
+        {title: 'Profil', icon: 'mdi-account', route: '/signup'},
       ]
     }
   },
   components: {
     DocumentList
+  },
+  methods: {
+    logout: function () {
+      fetch('/users/sign_out',{
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
+          }
+        }).then(() => document.location.reload())
+      },
   }
 }
 </script>
