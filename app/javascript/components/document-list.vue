@@ -1,6 +1,7 @@
 <template>
     <span>
-        <v-container>
+        <v-container
+        class="mx-auto">
             <v-data-table
                     :headers="headers"
                     :items="documentForUser"

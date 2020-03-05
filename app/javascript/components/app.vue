@@ -4,6 +4,7 @@
     absolute
     permanent
     color="blue-grey darken-2"
+    expand-on-hover
     dark
     >
       <v-list-item two-line>
@@ -46,12 +47,15 @@
       </v-list>
 
     </v-navigation-drawer>
+    <file-upload/>
     <router-view></router-view>
   </v-app>
 </template>
 
 <script>
 import DocumentList from './document-list'
+import FileUpload from './file_upload'
+import { logout } from "../network/vue-rails";
 
 export default {
   data(){
@@ -63,17 +67,11 @@ export default {
     }
   },
   components: {
-    DocumentList
+    DocumentList,
+    FileUpload
   },
   methods: {
-    logout: function () {
-      fetch('/users/sign_out',{
-        method: 'DELETE',
-        headers: {
-          'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
-          }
-        }).then(() => document.location.reload())
-      },
+    logout,
   }
 }
 </script>
