@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_07_082213) do
+ActiveRecord::Schema.define(version: 2020_03_06_111423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2020_02_07_082213) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "recipients", force: :cascade do |t|
+    t.bigint "document_id", null: false
+    t.boolean "signed", default: false
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["document_id"], name: "index_recipients_on_document_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +52,5 @@ ActiveRecord::Schema.define(version: 2020_02_07_082213) do
   end
 
   add_foreign_key "documents", "users"
+  add_foreign_key "recipients", "documents"
 end

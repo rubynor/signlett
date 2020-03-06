@@ -13,8 +13,12 @@ export const router = new VueRouter({
             path: '/signup',
             component: Signup
         }, {
-            path: '/documents',
-            component: DocumentList, FileUpload
+            path: '/dokumenter',
+            component: DocumentList
+        },
+        {
+            path: '/ny-signering',
+            component: FileUpload
         }
 
     ]
