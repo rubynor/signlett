@@ -14,16 +14,29 @@
                     </form>
                 </div>
             </v-card>
+            <!-- Button for adding files without drag and drop -->
             <v-card-text class="mt-n12 text-center">
                 <v-btn
                     color="success"
                     x-large
                     class="px-12"
+                    @click="openInput"
                 >
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     <span>Legg til fil</span>
                 </v-btn>
+                <input type="file" ref="file_input" style="display:none;" @change="onFileChange">
             </v-card-text>
+
+            <v-chip
+                class="ma-3"
+                v-for="(file, i) in files"
+                :key="i"
+                @click:close="close(i)"
+                close
+            >
+                {{file.name}}
+            </v-chip>
 
             <v-divider class="mx-auto"></v-divider>
 
@@ -78,6 +91,9 @@
             remove(index){
                 this.inputs.splice(index, 1)
             },
+            openInput(){
+                this.$refs.file_input.click()
+            },
             determineDragAndDropCapable() {
                 let div = document.createElement('div')
                 return (('draggable' in div)
@@ -104,6 +120,13 @@
             checkDrag() {
                 this.dragAndDropCapable = this.determineDragAndDropCapable()
                 console.log(this.dragAndDropCapable)
+            },
+            onFileChange({ target }) {
+                let file = target.files[0]
+                this.files.push(file)
+            },
+            close(index) {
+                this.files.splice(index, 1)
             }
         }
     }
