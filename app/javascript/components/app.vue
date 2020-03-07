@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
   .bc-color {
-    background-color: #FFF8E1;
+    background-color: #E0F7FA;
   }
 
 </style>

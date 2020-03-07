@@ -1,7 +1,7 @@
 <template>
     <v-container>
 
-        <v-card flat outlined elevation="3" class="px-8">
+        <v-card outlined tile class="px-8">
             <v-card
                     outlined
                     class="mt-4"
@@ -14,13 +14,15 @@
                     </form>
                 </div>
             </v-card>
+
             <!-- Button for adding files without drag and drop -->
             <v-card-text class="mt-n12 text-center">
                 <v-btn
-                    color="success"
+                    color="teal"
                     x-large
                     class="px-12"
                     @click="openInput"
+                    dark
                 >
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     <span>Legg til fil</span>
@@ -28,37 +30,50 @@
                 <input type="file" ref="file_input" style="display:none;" @change="onFileChange">
             </v-card-text>
 
-            <v-chip
-                class="ma-3"
+            <!-- Files for upload -->
+            <v-card
                 v-for="(file, i) in files"
-                :key="i"
-                @click:close="close(i)"
-                close
+                color="blue-grey lighten-5"
+                flat
+                class="ma-4"
+                hover
             >
-                {{file.name}}
-            </v-chip>
+                <v-list-item>
+                    <v-icon x-large color="teal" class="ma-2">{{file.value}}</v-icon>
+                    {{ file.name }} {{ file.size/1000 }} kb {{ file.type}}
+                    <v-row
+                        align="center"
+                        justify="end"
+                    >
+                        <v-icon @click="close(i)" class="ma-2">mdi-trash-can</v-icon>
+                    </v-row>
+                </v-list-item>
+            </v-card>
 
-            <v-divider class="mx-auto"></v-divider>
+            <v-divider class="ma-4"></v-divider>
 
             <v-card-text>
                 <v-form v-model="valid">
-                    <v-label>Legg til mottaker</v-label>
                     <div v-for="(input, k) in inputs" :key="k">
                         <v-text-field
                                 outlined
                                 label="Mottaker"
                                 :rules="emailRules"
                                 required
+                                prepend-inner-icon="mdi-email"
                         >
                             <template slot="append">
-                                <v-icon @click="remove(k)" color="error" v-show="inputs.length > 1 && k > 0">mdi-minus-circle</v-icon>
+                                <v-icon @click="remove(k)" color="pink lighten-2" v-show="inputs.length > 1 && k > 0">mdi-minus-circle</v-icon>
                             </template>
                         </v-text-field>
                     </div>
-                    <v-icon @click="add" color="success">mdi-plus-circle</v-icon>
+                    <v-icon @click="add" color="light-green">mdi-plus-circle</v-icon>
 
                 </v-form>
             </v-card-text>
+            <v-card-actions>
+                <v-btn text color="primary">Send til signering</v-btn>
+            </v-card-actions>
         </v-card>
     </v-container>
 </template>
@@ -69,6 +84,7 @@
     export default {
         data() {
             return {
+                recipients: [],
                 dragAndDropCapable: false,
                 files: [],
                 inputs: [
@@ -85,6 +101,9 @@
             }
         },
         methods: {
+            checkFileType(fileType) {
+
+            },
             add(){
                 this.inputs.push({ name: 'Mottaker' })
             },
@@ -127,6 +146,7 @@
             },
             close(index) {
                 this.files.splice(index, 1)
+                console.log(index)
             }
         }
     }
