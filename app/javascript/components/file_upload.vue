@@ -1,6 +1,21 @@
 <template>
     <v-container>
-
+        <v-alert
+            :value="successAlert"
+            text
+            type="success"
+            border="left"
+        >
+            {{ this.alertMessage }}
+        </v-alert>
+        <v-alert
+                :value="errorAlert"
+                text
+                type="error"
+                border="left"
+        >
+            {{ this.alertMessage }}
+        </v-alert>
         <v-card outlined tile class="px-8">
             <v-card
                     outlined
@@ -57,6 +72,7 @@
                     <div v-for="(input, k) in inputs" :key="k">
                         <v-text-field
                                 outlined
+                                v-model="recipientEmail"
                                 label="Mottaker"
                                 :rules="emailRules"
                                 required
@@ -79,7 +95,7 @@
 </template>
 
 <script>
-    import {logout} from "../network/vue-rails";
+    import { UPLOAD_DOCUMENT } from "../constants/graphql";
 
     export default {
         data() {
@@ -87,16 +103,20 @@
                 recipients: [],
                 dragAndDropCapable: false,
                 files: [],
+                recipientEmail: [],
                 inputs: [
                     {
-                        name: 'Mottaker'
+                        name: ''
                     }
                 ],
                 valid: false,
                 emailRules: [
                     v => !!v || 'E-mail is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-                ]
+                ],
+                alertMessage: '',
+                successAlert: false,
+                errorAlert: false,
 
             }
         },
@@ -148,8 +168,35 @@
                 this.files.splice(index, 1)
                 console.log(index)
             },
+            createDocument() {
+              const params = {
+                  'email': this.recipientEmail,
+                  'status': 0,
+                  'file': this.files
+              }
+            },
             uploadFile() {
+                const email = this.recipientEmail
+                const status = 0
+                const filePath = "../" + this.files.name
 
+                this.recipientEmail = ''
+
+                this.$apollo.mutate({
+                    mutation: UPLOAD_DOCUMENT,
+                    variables: {
+                        email: email,
+                        status: status,
+                        filePath: filePath
+                    }
+                }).then(() => {
+                    this.successAlert = true
+                    this.alertMessage = 'Dokumentet er lastet opp til signering!'
+                }).catch((error) => {
+                    this.errorAlert = true
+                    this.alertMessage = "Noe var gikk galt" + error
+                    this.recipientEmail = email
+                })
             }
         }
     }

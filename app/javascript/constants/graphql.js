@@ -38,3 +38,27 @@ export const CURRENT_USER = gql`
         }
     }
 `;
+
+export const UPLOAD_DOCUMENT = gql`
+    mutation uploadDocument($email: String!, $status: Int!, $filePath: String!){
+        createDocument(input: {
+            email: $email
+            status: $status
+            filePath: $filePath
+    })  {
+            document{
+                id
+                filePath
+                status
+            }
+            recipient{
+                id
+                email
+                signed
+            }
+            errors
+        }
+    }   
+`;
+
+

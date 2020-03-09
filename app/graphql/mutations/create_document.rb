@@ -16,7 +16,7 @@ module Mutations
       email.each do |email|
         recipient = document.recipients.build(email: email)
       end
-      
+
       if recipient.save
         {
             document: document,
