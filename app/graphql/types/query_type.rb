@@ -10,6 +10,11 @@ module Types
     field :document_for_user, [DocumentType], null: true do
       description "Find documents belonging to current user if there is any"
     end
+
+    field :recipient_for_document, [RecipientType], null: true do
+      description "Find recipients for given document"
+    end
+
     # User queries
     field :find_user, UserType, null: false do
       description "Find user by ID"
@@ -43,6 +48,12 @@ module Types
     def document_for_user
       currUser = context[:current_user]
       Document.where(user_id: currUser.id)
+    end
+
+    def recipient_for_document
+      currUser = context[:current_user]
+      documents = Document.where(user_id: currUser.id)
+      Recipient.where(document_id: documents.ids)
     end
 
   end

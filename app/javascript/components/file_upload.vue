@@ -39,7 +39,7 @@
                 hover
             >
                 <v-list-item>
-                    <v-icon x-large color="teal" class="ma-2">{{file.value}}</v-icon>
+                    <v-icon x-large color="teal" class="ma-2">mdi-file</v-icon>
                     {{ file.name }} {{ file.size/1000 }} kb {{ file.type}}
                     <v-row
                         align="center"
@@ -67,12 +67,12 @@
                             </template>
                         </v-text-field>
                     </div>
-                    <v-icon @click="add" color="light-green">mdi-plus-circle</v-icon>
+                    <v-icon right @click="add" color="light-green">mdi-plus-circle</v-icon>
 
                 </v-form>
             </v-card-text>
             <v-card-actions>
-                <v-btn text color="primary">Send til signering</v-btn>
+                <v-btn @click="uploadFile" text color="primary">Send til signering</v-btn>
             </v-card-actions>
         </v-card>
     </v-container>
@@ -147,6 +147,9 @@
             close(index) {
                 this.files.splice(index, 1)
                 console.log(index)
+            },
+            uploadFile() {
+
             }
         }
     }
