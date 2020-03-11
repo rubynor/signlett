@@ -88,7 +88,7 @@
                 </v-form>
             </v-card-text>
             <v-card-actions>
-                <v-btn @click="uploadFile" text color="primary">Send til signering</v-btn>
+                <v-btn @click="uploadFileAxios" text color="primary">Send til signering</v-btn>
             </v-card-actions>
         </v-card>
     </v-container>
@@ -96,6 +96,7 @@
 
 <script>
     import { UPLOAD_DOCUMENT } from "../constants/graphql";
+    import axios from 'axios'
 
     export default {
         data() {
@@ -178,7 +179,6 @@
             uploadFile() {
                 const email = this.recipientEmail
                 const status = 0
-                const filePath = "../" + this.files.name
 
                 this.recipientEmail = ''
 
@@ -186,8 +186,7 @@
                     mutation: UPLOAD_DOCUMENT,
                     variables: {
                         email: email,
-                        status: status,
-                        filePath: filePath
+                        status: status
                     }
                 }).then((data) => {
                     this.successAlert = true
@@ -197,6 +196,26 @@
                     this.errorAlert = true
                     this.alertMessage = "Noe var gikk galt" + error
                     this.recipientEmail = email
+                })
+            },
+            uploadFileAxios() {
+                const file = this.files[0]
+
+                const paramsDocument = {
+                    'document[file]': file,
+                    'document[status]': 0
+                }
+
+                let formData = new FormData()
+
+                Object.entries(paramsDocument).forEach(
+                    ([key, value]) => formData.append(key, value)
+                )
+
+                axios.post('/documents', formData).then(function (response) {
+                    console.log(response)
+                }).catch(function (error) {
+                    console.log(error)
                 })
             }
         }

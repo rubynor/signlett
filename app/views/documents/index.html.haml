@@ -5,10 +5,11 @@
   - @documents.each do |document|
     - if document.file.attached?
       - if document.file.previewable?
-        = image_tag document.file.preview(resize_to_limit: [100,100])
+        = link_to document.file.filename, rails_blob_path(document.file, disposition: 'preview')
       - else
         %h1
           Ingen filer kunne vises!
           = link_to document.file.filename, rails_blob_path(document.file, disposition: 'preview')
           = link_to 'Dokument filepath', document.file_path
+
 = link_to 'New document', new_document_path

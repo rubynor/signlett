@@ -4,8 +4,10 @@ import {InMemoryCache} from "apollo-cache-inmemory";
 import {ApolloClient} from "apollo-client";
 import { setContext } from 'apollo-link-context';
 import VueApollo from "vue-apollo";
-
 import {getCsrfToken} from "./vue-rails";
+import {ApolloLink} from "apollo-link";
+import {createUploadLink} from "apollo-upload-client";
+import {BatchHttpLink} from "apollo-link-batch-http";
 
 const authLink = setContext((_, { headers }) => {
    return {
@@ -21,16 +23,24 @@ const httpLink = new HttpLink({
     credentials: 'same-origin'
 });
 
+const options = {
+    uri: 'http://localhost:3000/graphql',
+    credentials: 'include'
+}
+
+const httpLinkUpload = ApolloLink.split(
+    op => op.getContext().hasUpload,
+    createUploadLink(options),
+    new HttpLink(options)
+)
+
 const cache = new InMemoryCache();
 
-export const apolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+const apolloClient = new ApolloClient({
+    link: authLink.concat(httpLinkUpload),
     cache: cache
 });
 
 export const apolloProvider = new VueApollo({
     defaultClient: apolloClient,
-    defaultOptions: {
-        $loadingKey: 'loading'
-    }
 })
