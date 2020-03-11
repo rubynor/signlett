@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
 
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
 
   def index
     @documents = Document.where(user_id: current_user.id)

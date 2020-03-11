@@ -18,10 +18,6 @@ const authLink = setContext((_, { headers }) => {
    }
 });
 
-const httpLink = new HttpLink({
-    uri: 'http://localhost:3000/graphql',
-    credentials: 'same-origin'
-});
 
 const options = {
     uri: 'http://localhost:3000/graphql',
