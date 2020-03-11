@@ -214,10 +214,16 @@
                     ([key, value]) => formData.append(key, value)
                 )
 
-                axios.post('/documents', formData).then(function (response) {
-                    console.log(response)
-                }).catch(function (error) {
-                    console.log(error.response)
+                axios.post('/documents', formData).then(response => {
+                    this.successAlert = true
+                    this.errorAlert = false
+                    this.files = []
+                    this.recipientEmail = ""
+                    this.alertMessage = "Dokument lastet opp til signering"
+                }).catch(error => {
+                    this.successAlert = false
+                    this.errorAlert = true
+                    this.alertMessage = "Dokument kunne ikke lastest opp." + error
                 })
             }
         }
