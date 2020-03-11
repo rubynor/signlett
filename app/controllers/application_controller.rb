@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-  layout 'application'
+  layout :choose_layout
 
   def choose_layout
     if current_user.nil?

@@ -1,3 +1,3 @@
 class Recipient < ApplicationRecord
-  belongs_to :document
+  belongs_to :document, dependent: :destroy
 end
