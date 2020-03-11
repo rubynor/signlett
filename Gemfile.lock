@@ -58,6 +58,9 @@ GEM
       zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    apollo_upload_server (2.0.1)
+      graphql (>= 1.8)
+      rails (>= 4.2)
     ast (2.4.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
@@ -330,6 +333,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apollo_upload_server (= 2.0.1)
   bootsnap (>= 1.4.2)
   bullet
   byebug

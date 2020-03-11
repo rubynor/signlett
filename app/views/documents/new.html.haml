@@ -1,0 +1,21 @@
+%h1
+  Create a new document
+
+.notice
+  = notice
+
+= form_with(model: @document, local: true) do |f|
+  - if @document.errors.any?
+    - @document.errors.full_messages.each do |message|
+      = message
+  .field
+    = f.label :status, "Status"
+    = f.text_field :status
+  .field
+    = f.label :file_path, "File path"
+    = f.text_field :file_path
+  .field
+    = f.label :file, "File"
+    = f.file_field :file
+  .field
+    = f.submit

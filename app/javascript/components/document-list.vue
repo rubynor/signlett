@@ -9,6 +9,13 @@
                     class="elevation-1"
                     loading-text="Laster inn.. Vennligst vent"
             ></v-data-table>
+            <v-card
+            v-for="document in documentForUser"
+            >
+                <v-card-text>
+                    <a :href="document.filePath">Åpne dokument</a>
+                </v-card-text>
+            </v-card>
         </v-container>
     </span>
 </template>

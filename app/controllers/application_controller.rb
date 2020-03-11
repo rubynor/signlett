@@ -1,7 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
+
+  layout 'application'
+
+  def choose_layout
+    if current_user.nil?
+      'application'
+    else
+      'vue-layout'
+
+    end
+  end
+
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+
 
   protected
 

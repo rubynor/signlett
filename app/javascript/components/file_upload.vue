@@ -189,10 +189,11 @@
                         status: status,
                         filePath: filePath
                     }
-                }).then(() => {
+                }).then((data) => {
                     this.successAlert = true
                     this.alertMessage = 'Dokumentet er lastet opp til signering!'
-                }).catch((error) => {
+                    console.log(data)
+                    }).catch((error) => {
                     this.errorAlert = true
                     this.alertMessage = "Noe var gikk galt" + error
                     this.recipientEmail = email
