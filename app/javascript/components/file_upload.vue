@@ -200,10 +200,12 @@
             },
             uploadFileAxios() {
                 const file = this.files[0]
+                const email = this.recipientEmail
 
                 const paramsDocument = {
                     'document[file]': file,
-                    'document[status]': 0
+                    'document[status]': 0,
+                    'document[email]': email
                 }
 
                 let formData = new FormData()
@@ -215,7 +217,7 @@
                 axios.post('/documents', formData).then(function (response) {
                     console.log(response)
                 }).catch(function (error) {
-                    console.log(error)
+                    console.log(error.response)
                 })
             }
         }

@@ -9,14 +9,16 @@
                     class="elevation-1"
                     loading-text="Laster inn.. Vennligst vent"
             ></v-data-table>
+            <v-card>
 
+            </v-card>
         </v-container>
     </span>
 </template>
 
 <script>
-    import {ALL_DOCUMENTS_QUERY, CURRENT_USER, DOCUMENT_FOR_USER} from "../constants/graphql";
-    import gql from 'graphql-tag'
+    import {DOCUMENT_FOR_USER} from "../constants/graphql";
+
     export default {
         name: 'DocumentList',
         data() {

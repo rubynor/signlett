@@ -1,0 +1,2 @@
+class DocumentMailer < ApplicationMailer
+end
