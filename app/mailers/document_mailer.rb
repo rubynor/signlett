@@ -8,7 +8,7 @@ class DocumentMailer < ApplicationMailer
 
     attachments[@document.id.to_s + '_' + @document.file.filename.to_s] = { mime_type: 'application/pdf', content: @document.file.download}
     mail(to: @email,
-         reply_to: @document.id.to_s + '_signering@signlett.com',
+         reply_to: 'signature-' + @document.id.to_s + '@signlett.com',
          subject: 'Du har et dokument til signering')
   end
 end
