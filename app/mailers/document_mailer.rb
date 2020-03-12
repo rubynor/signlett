@@ -1,5 +1,5 @@
 class DocumentMailer < ApplicationMailer
-  default from: 'system@signlett.com'
+  default from: 'signering@signlett.com'
 
   def signature_email
     @email = params[:email]
@@ -7,6 +7,8 @@ class DocumentMailer < ApplicationMailer
     @document = params[:document]
 
     attachments[@document.id.to_s + '_' + @document.file.filename.to_s] = { mime_type: 'application/pdf', content: @document.file.download}
-    mail(to: @email, subject: 'Du har et dokument til signering')
+    mail(to: @email,
+         reply_to: @document.id.to_s + '_signering@signlett.com',
+         subject: 'Du har et dokument til signering')
   end
 end
