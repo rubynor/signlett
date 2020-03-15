@@ -55,7 +55,7 @@
             >
                 <v-list-item>
                     <v-icon x-large color="teal" class="ma-2">mdi-file</v-icon>
-                    {{ file.name }} {{ file.size/1000 }} kb {{ file.type}}
+                    {{ file.name }} {{ file.size/1000 }} kb
                     <v-row
                         align="center"
                         justify="end"
@@ -69,21 +69,32 @@
 
             <v-card-text>
                 <v-form v-model="valid">
-                    <div v-for="(input, k) in inputs" :key="k">
+                    <div v-for="(recipient, k) in emailRecipient" :key="k">
                         <v-text-field
                                 outlined
-                                v-model="recipientEmail"
+                                chips
+                                v-model="recipient.email"
                                 label="Mottaker"
                                 :rules="emailRules"
                                 required
                                 prepend-inner-icon="mdi-email"
                         >
                             <template slot="append">
-                                <v-icon @click="remove(k)" color="pink lighten-2" v-show="inputs.length > 1 && k > 0">mdi-minus-circle</v-icon>
+                                <v-icon @click="remove(k)" color="pink lighten-2" v-show="emailRecipient.length > 1 && k > 0">mdi-minus-circle</v-icon>
                             </template>
                         </v-text-field>
                     </div>
-                    <v-icon right @click="add" color="light-green">mdi-plus-circle</v-icon>
+                    <v-btn
+                            block
+                            depressed
+                            dark
+                            x-large
+                            color="teal"
+                            @click="add"
+                    >
+                        <v-icon left>mdi-plus-circle-outline</v-icon>
+                        Legg til mottaker
+                    </v-btn>
 
                 </v-form>
             </v-card-text>
@@ -95,19 +106,17 @@
 </template>
 
 <script>
-    import { UPLOAD_DOCUMENT } from "../constants/graphql";
     import axios from 'axios'
 
     export default {
         data() {
             return {
-                recipients: [],
                 dragAndDropCapable: false,
                 files: [],
                 recipientEmail: [],
-                inputs: [
+                emailRecipient: [
                     {
-                        name: ''
+                        email: ''
                     }
                 ],
                 valid: false,
@@ -122,14 +131,18 @@
             }
         },
         methods: {
+            checkEmail() {
+                const email = JSON.stringify(this.emailRecipient, null, 0)
+                console.log(email.toString())
+            },
             checkFileType(fileType) {
 
             },
             add(){
-                this.inputs.push({ name: 'Mottaker' })
+                this.emailRecipient.push({ email: '' })
             },
             remove(index){
-                this.inputs.splice(index, 1)
+                this.emailRecipient.splice(index, 1)
             },
             openInput(){
                 this.$refs.file_input.click()
@@ -157,10 +170,6 @@
                 }.bind(this))
 
             },
-            checkDrag() {
-                this.dragAndDropCapable = this.determineDragAndDropCapable()
-                console.log(this.dragAndDropCapable)
-            },
             onFileChange({ target }) {
                 let file = target.files[0]
                 this.files.push(file)
@@ -169,38 +178,9 @@
                 this.files.splice(index, 1)
                 console.log(index)
             },
-            createDocument() {
-              const params = {
-                  'email': this.recipientEmail,
-                  'status': 0,
-                  'file': this.files
-              }
-            },
-            uploadFile() {
-                const email = this.recipientEmail
-                const status = 0
-
-                this.recipientEmail = ''
-
-                this.$apollo.mutate({
-                    mutation: UPLOAD_DOCUMENT,
-                    variables: {
-                        email: email,
-                        status: status
-                    }
-                }).then((data) => {
-                    this.successAlert = true
-                    this.alertMessage = 'Dokumentet er lastet opp til signering!'
-                    console.log(data)
-                    }).catch((error) => {
-                    this.errorAlert = true
-                    this.alertMessage = "Noe var gikk galt" + error
-                    this.recipientEmail = email
-                })
-            },
             uploadFileAxios() {
                 const file = this.files[0]
-                const email = this.recipientEmail
+                const email = JSON.stringify(this.emailRecipient, null, 2)
 
                 const paramsDocument = {
                     'document[file]': file,

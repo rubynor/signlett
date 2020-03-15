@@ -8,7 +8,18 @@
                     :items-per-page="5"
                     class="elevation-1"
                     loading-text="Laster inn.. Vennligst vent"
-            ></v-data-table>
+            >
+                <template v-slot:item.actions="{ item }">
+                    <v-btn
+                        text
+                        x-small
+                        color="success"
+                        :href="item.filePath"
+                    >
+                        Åpne dokument
+                    </v-btn>
+                </template>
+            </v-data-table>
             <v-card>
 
             </v-card>
@@ -27,12 +38,17 @@
                     {text: 'Dokument id', value: 'id'},
                     {text: 'Status signering', value: 'status'},
                     {text: 'Laget av', value: 'user.email'},
-                    {text: 'Åpne dokument', value: 'filePath'},
+                    {text: 'Åpne dokument', value: 'actions', sortable: false}
 
                 ],
                 documentForUser: []
 
             }
+        },
+        methods: {
+          openDocument(item){
+
+          }
         },
         apollo: {
             documentForUser: {

@@ -20,13 +20,20 @@ class DocumentsController < ApplicationController
     @document.user_id = current_user.id
     if @document.save
       @document.update!(file_path: rails_blob_path(@document.file, disposition: 'preview'))
-      @recipient = Recipient.new(document_id: @document.id, email: params[:document][:email])
-      if @recipient.save
-        DocumentMailer.with(user: current_user,
-                            email: @recipient.email,
-                            document: @document).signature_email.deliver_later
-        render json: @document
+      email_array = JSON.parse(params[:document][:email])
+      puts email_array[0]
+      email_array.each do |email|
+        @recipient = Recipient.new(document_id: @document.id, email: email[:email])
+        if @recipient.save
+          DocumentMailer.with(user: current_user,
+                              email: @recipient.email,
+                              document: @document).signature_email.deliver_later
+          render json: @document
+        else
+          Document.delete(@document.id)
+        end
       end
+
     else
       puts @document.errors.full_messages
       render json: @document.errors
