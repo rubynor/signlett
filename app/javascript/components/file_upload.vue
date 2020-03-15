@@ -67,41 +67,42 @@
             </v-card>
 
             <v-divider class="ma-4"></v-divider>
+            <v-form v-model="valid" ref="form">
+                <v-card-text>
 
-            <v-card-text>
-                <v-form v-model="valid">
-                    <div v-for="(recipient, k) in emailRecipient" :key="k">
-                        <v-text-field
-                                outlined
-                                chips
-                                v-model="recipient.email"
-                                label="Mottaker"
-                                :rules="emailRules"
-                                required
-                                prepend-inner-icon="mdi-email"
+                        <div v-for="(recipient, k) in emailRecipient" :key="k">
+                            <v-text-field
+                                    outlined
+                                    chips
+                                    v-model="recipient.email"
+                                    label="Mottaker"
+                                    :rules="emailRules"
+                                    required
+                                    prepend-inner-icon="mdi-email"
+                            >
+                                <template slot="append">
+                                    <v-icon @click="removeEmailField(k)" color="pink lighten-2" v-show="emailRecipient.length > 1 && k > 0">mdi-minus-circle</v-icon>
+                                </template>
+                            </v-text-field>
+                        </div>
+                        <v-btn
+                                block
+                                depressed
+                                dark
+                                x-large
+                                color="teal"
+                                @click="addEmailField()"
                         >
-                            <template slot="append">
-                                <v-icon @click="remove(k)" color="pink lighten-2" v-show="emailRecipient.length > 1 && k > 0">mdi-minus-circle</v-icon>
-                            </template>
-                        </v-text-field>
-                    </div>
-                    <v-btn
-                            block
-                            depressed
-                            dark
-                            x-large
-                            color="teal"
-                            @click="add()"
-                    >
-                        <v-icon left>mdi-plus-circle-outline</v-icon>
-                        Legg til mottaker
-                    </v-btn>
+                            <v-icon left>mdi-plus-circle-outline</v-icon>
+                            Legg til mottaker
+                        </v-btn>
 
-                </v-form>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn @click="uploadFileAxios" text color="primary">Send til signering</v-btn>
-            </v-card-actions>
+
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn @click="uploadFileAxios" text color="primary">Send til signering</v-btn>
+                </v-card-actions>
+            </v-form>
         </v-card>
     </v-container>
 </template>
@@ -114,7 +115,6 @@
             return {
                 dragAndDropCapable: false,
                 files: [],
-                recipientEmail: [],
                 emailRecipient: [
                     {
                         email: ''
@@ -128,12 +128,13 @@
                 alertMessage: '',
                 successAlert: false,
                 errorAlert: false,
-
             }
         },
         methods: {
+            // Recipient methods
             makeEmailArray() {
-
+                // The emails are objects, and rails cant parse them.
+                // Therefore convert them to a string array
                 const array = [];
                 this.emailRecipient.forEach((item) => {
                     let jsonEmail = JSON.parse(JSON.stringify(item));
@@ -141,18 +142,11 @@
                 });
                 return array
             },
-            checkFileType(fileType) {
-
-            },
-            add(){
-
+            addEmailField(){
                 this.emailRecipient.push({email: ''})
             },
-            remove(index){
+            removeEmailField(index){
                 this.emailRecipient.splice(index, 1)
-            },
-            openInput(){
-                this.$refs.file_input.click()
             },
             determineDragAndDropCapable() {
                 let div = document.createElement('div')
@@ -177,6 +171,10 @@
                 }.bind(this))
 
             },
+            // File upload methods
+            openInput(){
+                this.$refs.file_input.click()
+            },
             onFileChange({ target }) {
                 let file = target.files[0]
                 this.files.push(file)
@@ -186,32 +184,37 @@
                 console.log(index)
             },
             uploadFileAxios() {
-                const file = this.files[0]
-                const email = this.makeEmailArray()
+                if(this.$refs.form.validate()){
+                    const file = this.files[0]
+                    const email = this.makeEmailArray()
 
-                const paramsDocument = {
-                    'document[file]': file,
-                    'document[status]': 0,
-                    'document[email]': email
+                    const paramsDocument = {
+                        'document[file]': file,
+                        'document[status]': 0,
+                        'document[email]': email
+                    }
+
+                    let formData = new FormData()
+
+                    Object.entries(paramsDocument).forEach(
+                        ([key, value]) => formData.append(key, value)
+                    )
+
+                    axios.post('/documents', formData).then(response => {
+                        this.successAlert = true
+                        this.errorAlert = false
+                        this.files = []
+                        this.emailRecipient = [{email: ''}]
+                        this.alertMessage = "Dokument lastet opp til signering"
+                        this.$refs.form.resetValidation()
+                    }).catch(error => {
+                        this.successAlert = false
+                        this.errorAlert = true
+                        this.alertMessage = "Dokument kunne ikke lastest opp." + error
+                    })
                 }
 
-                let formData = new FormData()
 
-                Object.entries(paramsDocument).forEach(
-                    ([key, value]) => formData.append(key, value)
-                )
-
-                axios.post('/documents', formData).then(response => {
-                    this.successAlert = true
-                    this.errorAlert = false
-                    this.files = []
-                    this.recipientEmail = ""
-                    this.alertMessage = "Dokument lastet opp til signering"
-                }).catch(error => {
-                    this.successAlert = false
-                    this.errorAlert = true
-                    this.alertMessage = "Dokument kunne ikke lastest opp." + error
-                })
             }
         }
     }

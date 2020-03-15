@@ -16,6 +16,7 @@ class DocumentsController < ApplicationController
   end
 
   def create
+    # The array is sent as a string object, therefore split at , and make an array
     email_array = params[:document][:email].split(",")
 
     @document = Document.new(status: params[:document][:status], file: params[:document][:file])
