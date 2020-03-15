@@ -16,14 +16,14 @@ class DocumentsController < ApplicationController
   end
 
   def create
+    email_array = params[:document][:email].split(",")
+
     @document = Document.new(status: params[:document][:status], file: params[:document][:file])
     @document.user_id = current_user.id
     if @document.save
       @document.update!(file_path: rails_blob_path(@document.file, disposition: 'preview'))
-      email_array = JSON.parse(params[:document][:email])
-      puts email_array[0]
       email_array.each do |email|
-        @recipient = Recipient.new(document_id: @document.id, email: email[:email])
+        @recipient = Recipient.new(document_id: @document.id, email: email)
         if @recipient.save
           DocumentMailer.with(user: current_user,
                               email: @recipient.email,
@@ -39,6 +39,7 @@ class DocumentsController < ApplicationController
       render json: @document.errors
     end
   end
+
 
   protected
 

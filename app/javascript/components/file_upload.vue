@@ -48,6 +48,7 @@
             <!-- Files for upload -->
             <v-card
                 v-for="(file, i) in files"
+                :key="i"
                 color="blue-grey lighten-5"
                 flat
                 class="ma-4"
@@ -90,7 +91,7 @@
                             dark
                             x-large
                             color="teal"
-                            @click="add"
+                            @click="add()"
                     >
                         <v-icon left>mdi-plus-circle-outline</v-icon>
                         Legg til mottaker
@@ -131,15 +132,21 @@
             }
         },
         methods: {
-            checkEmail() {
-                const email = JSON.stringify(this.emailRecipient, null, 0)
-                console.log(email.toString())
+            makeEmailArray() {
+
+                const array = [];
+                this.emailRecipient.forEach((item) => {
+                    let jsonEmail = JSON.parse(JSON.stringify(item));
+                    array.push(jsonEmail.email)
+                });
+                return array
             },
             checkFileType(fileType) {
 
             },
             add(){
-                this.emailRecipient.push({ email: '' })
+
+                this.emailRecipient.push({email: ''})
             },
             remove(index){
                 this.emailRecipient.splice(index, 1)
@@ -180,7 +187,7 @@
             },
             uploadFileAxios() {
                 const file = this.files[0]
-                const email = JSON.stringify(this.emailRecipient, null, 2)
+                const email = this.makeEmailArray()
 
                 const paramsDocument = {
                     'document[file]': file,
