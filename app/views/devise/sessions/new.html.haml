@@ -1,28 +1,54 @@
-/ Compiled and minified CSS
-%link{:href => "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css", :rel => "stylesheet"}/
-/ Compiled and minified JavaScript
-%script{:src => "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"}
-%link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
-.container
-  .notice.red-text
-  = notice
-  .alert.red-text
-    = alert
-
-.container
-  = form_tag session_path(:user) do
-    .card.horizontal
-      .card-content.blue-grey.darken-4.center-align
-        %i.large.material-icons.white-text
-          send
-        %h2.white-text
-          Signaturlett
-        %p.white-text
-
-      .card-stacked
-        .card-content
+.row.height-100
+  .col.s1.l4.height-100.valign-wrapper.green.lighten-2
+    .container
+      .center-align
+        = image_tag("icons.png", size: "400x400", :alt => "Image")
+  .col.s8.height-100
+    .notice.red-text
+      = notice
+    .alert.red-text
+      = alert
+    .height-25
+    .col.s12.l4.offset-l4
+      %h3
+        Registrer deg!
+      %p
+        Registrer deg nå for å få alt ut av Signlett.
+        Du kan se egne signeringer og se signering andre har sendt til deg!
+    .col.s12.l4.offset-l4
+      %ul.tabs
+        %li.tab.col
+          %a{:href => "#login"}
+            Logg inn
+        %li.tab.col.indigo-text
+          %a{:href => "#signup"}
+            Registrer deg
+      #login.section
+        =form_tag session_path(:user) do
           = text_field_tag 'user[email]', "", placeholder: "E-post"
           = password_field_tag 'user[password]', "", placeholder: "Passord"
-          %button.btn.indigo.darken-2 Sign in
-        .card-content
-          = render 'devise/shared/links'
+          %button.btn-flat.white-text.green.lighten-2 Logg inn
+      #signup.section
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .input-field
+            = f.text_field :first_name, placeholder: "Fornavn"
+            %i.material-icons.prefix
+              mode_edit
+          .input-field
+            = f.text_field :last_name, placeholder: "Etternavn"
+          .input-field
+            = f.email_field :email, placeholder: "E-post", class: "validate"
+            %span.helper-text{"data-error" => "Fyll inn en gyldig e-post adresse", "data-success" => "Riktig!"}
+          .input-field
+            = f.password_field :password, placeholder: "Passord"
+          .input-field
+            = f.password_field :password_confirmation, placeholder: "Bekreft passord"
+          .input-field
+            = f.submit "Registrer deg", class: "btn-flat green lighten- white-text "
+
+
+:javascript
+    $(document).ready(function(){
+      $('.tabs').tabs();
+    });

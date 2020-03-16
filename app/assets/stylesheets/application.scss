@@ -13,6 +13,49 @@
  *= require_tree .
  *= require_self
  */
-body {
-  background-color: #E0F7FA;
+body, html {
+  height: 100%;
+}
+.height-100 {
+  height: 100%;
+  border: none;
+}
+.height-80{
+  height: 80%;
+}
+.height-60{
+  height: 60%;
+}
+.height-50{
+  height: 50%;
+}
+.height-40{
+  height: 40%;
+}
+.height-30{
+  height: 30%;
+}
+.height-25{
+  height: 25%;
+}
+
+/// MY CUSTOM COLOR VARIABLES
+$custom-color: #81c784;
+
+// RESTYLING THE TABS USING THE CUSTOM VARIABLE
+.tabs {
+  .tab {
+    a {
+      color: $custom-color !important;
+      &.active {color: $custom-color !important;}
+      &:hover {color: $custom-color !important;}
+      &:focus {
+        background-color: rgba($custom-color, 0.1) !important;
+        &.active{
+          background-color: rgba($custom-color, 0.1) !important;
+        }
+      }
+    }
+  }
+  .indicator {background-color: $custom-color !important;}
 }
