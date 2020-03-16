@@ -1,6 +1,5 @@
 <template>
-    <v-app>
-        <v-form>
+    <v-form>
         <v-container>
             <v-row
             justify="center"
@@ -62,9 +61,7 @@
                     </v-col>
             </v-row>
         </v-container>
-        </v-form>
-
-    </v-app>
+    </v-form>
 </template>
 
 <script>

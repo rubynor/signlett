@@ -1,30 +1,29 @@
 <template>
-  <v-app>
-    <v-app-bar
-               dense
-              shrink-on-scroll
-              app>
-      <v-app-bar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-lightweight">MATERIAL DESIGN</span>
-      </v-app-bar-title>
-    </v-app-bar>
+  <v-app class="bc-color">
+    <navigation/>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
+import DocumentList from './document-list'
+import Navigation from './navigation'
+
 export default {
-  data: function () {
+  data(){
     return {
-      message: "Hello Vue!"
     }
-  }
+  },
+  components: {
+    DocumentList,
+    Navigation
+  },
 }
 </script>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
+  .bc-color {
+    background-color: #E0F7FA;
+  }
+
 </style>

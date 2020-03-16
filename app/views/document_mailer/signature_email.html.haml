@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    :css
+      /* Email styles need to be inline */
+  %body
+    %h1
+      Du har et dokument som venter på signering fra
+      = @user.first_name
+
+    %p
+      Vedlagt finner du dokumentet som venter på signering.
+    %p
+      For å fullføre signeringen svarer du bare på denne e-posten med ferdig signert dokument
+    %p
+      Eller oppretter en bruker med
+      = @email

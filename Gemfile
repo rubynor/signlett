@@ -21,7 +21,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+# Middleware for using graphql-ruby and apollo-upload-client
+gem 'apollo_upload_server', '2.0.1'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'graphql'        # Graphql for using vue

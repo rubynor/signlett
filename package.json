@@ -9,13 +9,18 @@
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.13",
+    "apollo-link-batch-http": "^1.2.13",
+    "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
+    "apollo-upload-client": "^12.1.0",
+    "axios": "^0.19.2",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "turbolinks": "^5.2.0",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.3",
     "vue-loader": "^15.8.3",
+    "vue-router": "^3.1.6",
     "vue-template-compiler": "^2.6.11",
     "vuetify": "^2.2.11",
     "vuex": "^3.1.2"
@@ -23,5 +28,6 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.10.2"
-  }
+  },
+  "license": "UNLICENSED"
 }

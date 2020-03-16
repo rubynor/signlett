@@ -1,20 +1,35 @@
 <template>
     <span>
-        <v-container>
+        <v-container
+        class="mx-auto">
             <v-data-table
                     :headers="headers"
-                    :items="findAllDocuments"
+                    :items="documentForUser"
                     :items-per-page="5"
                     class="elevation-1"
                     loading-text="Laster inn.. Vennligst vent"
-            ></v-data-table>
+            >
+                <template v-slot:item.actions="{ item }">
+                    <v-btn
+                        text
+                        x-small
+                        color="success"
+                        :href="item.filePath"
+                    >
+                        Åpne dokument
+                    </v-btn>
+                </template>
+            </v-data-table>
+            <v-card>
+
+            </v-card>
         </v-container>
     </span>
 </template>
 
 <script>
-    import { ALL_DOCUMENTS_QUERY } from "../constants/graphql";
-    import gql from 'graphql-tag'
+    import {DOCUMENT_FOR_USER} from "../constants/graphql";
+
     export default {
         name: 'DocumentList',
         data() {
@@ -23,16 +38,21 @@
                     {text: 'Dokument id', value: 'id'},
                     {text: 'Status signering', value: 'status'},
                     {text: 'Laget av', value: 'user.email'},
-                    {text: 'Åpne dokument', value: 'filePath'},
+                    {text: 'Åpne dokument', value: 'actions', sortable: false}
 
                 ],
-                findAllDocuments: []
+                documentForUser: []
 
             }
         },
+        methods: {
+          openDocument(item){
+
+          }
+        },
         apollo: {
-            findAllDocuments: {
-                query: ALL_DOCUMENTS_QUERY
+            documentForUser: {
+                query: DOCUMENT_FOR_USER
             }
         }
     }
