@@ -138,7 +138,49 @@
                                         <v-col
                                                 cols="3"
                                         >
-                                            {{document.file.filename}}
+                                            <v-tooltip
+                                                    bottom
+                                            >
+                                                <template v-slot:activator="{ on }">
+                                                    <v-btn
+                                                            v-on="on"
+                                                            icon
+                                                            color="green lighten-2"
+                                                            :href="document.filePath"
+                                                    >
+                                                        <v-icon>mdi-download</v-icon>
+                                                    </v-btn>
+                                                </template>
+                                                <span>Last ned dokument</span>
+                                            </v-tooltip>
+                                             <v-tooltip
+                                                     bottom
+                                             >
+                                                <template v-slot:activator="{ on }">
+                                                    <v-btn
+                                                            v-on="on"
+                                                            icon
+                                                            color="blue lighten-2">
+                                                        <v-icon>
+                                                            mdi-pen
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </template>
+                                                <span>Rediger dokument</span>
+                                            </v-tooltip>
+                                             <v-tooltip
+                                                     bottom
+                                             >
+                                                <template v-slot:activator="{ on }">
+                                                    <v-btn
+                                                            v-on="on"
+                                                            icon
+                                                            color="red lighten-2">
+                                                        <v-icon>mdi-trash-can</v-icon>
+                                                    </v-btn>
+                                                </template>
+                                                <span>Slett dokument</span>
+                                            </v-tooltip>
                                         </v-col>
                                     </v-row>
                                 </div>
@@ -148,8 +190,32 @@
                 </v-row>
             </template>
             <template v-slot:footer>
-                <span class="mt-5"></span>
-                <v-pagination v-model="page" :length="numberOfPages" class="elevation-0 mt-5 tile"></v-pagination>
+                <v-row>
+                    <v-col
+                        cols="12"
+                        lg="10"
+                        offset-sm="1"
+                        class="mt-5 pa-0 mt-5 pl-0"
+                    >
+                        <v-row>
+                            <v-col
+                                sm="1"
+                            >
+                                <v-select
+                                        solo
+                                        class="tile"
+                                        v-model="itemsPerPage"
+                                        :items="itemsPerPageArray"
+                                >
+                                </v-select>
+                            </v-col>
+                            <v-col
+                                    lg="11">
+                              <v-pagination v-model="page" :length="numberOfPages" class="elevation-0 mt-5 tile"></v-pagination>
+                            </v-col>
+                            </v-row>
+                    </v-col>
+                </v-row>
             </template>
         </v-data-iterator>
     </span>
