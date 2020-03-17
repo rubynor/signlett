@@ -29,9 +29,7 @@ module Types
       description "Get current logged in user"
     end
 
-    field :get_file, DocumentType, null: true do
-      description "Get files"
-    end
+
     def users
       User.all
     end
@@ -59,9 +57,6 @@ module Types
       Recipient.where(document_id: documents.ids)
     end
 
-    def get_file
-      Document.first
-    end
 
   end
 end

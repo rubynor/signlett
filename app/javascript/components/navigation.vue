@@ -2,7 +2,7 @@
     <v-navigation-drawer
             absolute
             permanent
-            color="blue-grey darken-2"
+            color="green lighten-2"
             expand-on-hover
             dark
     >
@@ -20,7 +20,6 @@
                     v-for="item in items"
                     :key="item.title"
                     :to="item.route"
-                    @click=""
             >
                 <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>

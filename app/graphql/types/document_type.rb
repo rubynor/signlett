@@ -4,6 +4,9 @@ module Types
     field :user, Types::UserType, null: false
     field :status, Integer, null: false
     field :file_path, String, null: false
+    field :created_at, String, null: false
+    field :updated_at, String, null: false
+    field :file, Types::FileType, null: false
 
 
   end

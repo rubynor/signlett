@@ -1,29 +1,7 @@
 <template>
     <span>
-        <v-container
-        class="mx-auto">
-            <v-data-table
-                    :headers="headers"
-                    :items="documentForUser"
-                    :items-per-page="5"
-                    class="elevation-1"
-                    loading-text="Laster inn.. Vennligst vent"
-            >
-                <template v-slot:item.actions="{ item }">
-                    <v-btn
-                        text
-                        x-small
-                        color="success"
-                        :href="item.filePath"
-                    >
-                        Åpne dokument
-                    </v-btn>
-                </template>
-            </v-data-table>
-            <v-card>
-
-            </v-card>
-        </v-container>
+        <v-data-table
+        ></v-data-table>
     </span>
 </template>
 
@@ -46,8 +24,22 @@
             }
         },
         methods: {
-          openDocument(item){
+          determineStatus(status){
+              switch (status) {
+                case 0: "mdi-alert";
+                    break;
+                case 1:
+                    "mdi-progress-check"
+                    console.log(status)
 
+                    break;
+                case 2:
+                    "mdi-check-circle-outline"
+                    console.log(status)
+                    break;
+                default:
+                    break;
+              }
           }
         },
         apollo: {

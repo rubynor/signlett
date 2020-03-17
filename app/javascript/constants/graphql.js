@@ -4,6 +4,8 @@ export const ALL_DOCUMENTS_QUERY = gql`
   query getDocuments{
     findAllDocuments {
         id
+        createdAt
+        updatedAt
         user{
             firstName
             lastName
@@ -20,6 +22,8 @@ export const DOCUMENT_FOR_USER = gql`
   query documents{
     documentForUser {
         id
+        createdAt
+        updatedAt
         user{
             firstName
             lastName
