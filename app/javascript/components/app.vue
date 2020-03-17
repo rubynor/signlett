@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .bc-color {
+    background-color: #F6F7FD;
+  }
 
 </style>

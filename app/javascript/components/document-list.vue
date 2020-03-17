@@ -14,17 +14,74 @@
         </v-row>
         <v-data-iterator
             :items="documentForUser"
+            :items-per-page.sync="itemsPerPage"
+            :page="page"
+            :search="search"
+            :sort-by="sortBy.toLowerCase()"
+            hide-default-footer
+
         >
+            <template v-slot:header>
+                <v-row>
+                    <v-col
+                            cols="12"
+                            sm="10"
+                            offset-sm="1"
+                            class="pa-0 mt-5 pl-0">
+                         <span
+                            class="mb-1 pa"
+                            flat
+                         >
+                            <v-row>
+                                <v-col
+                                    lg="1"
+                                >
+                                    <template v-if="$vuetify.breakpoint.mdAndUp">
+                                        <v-select
+                                                flat
+                                                v-model="sortBy"
+                                                solo
+                                                hide-details
+                                                :items="keys"
+                                                label="Sorter"
+                                                color="grey lighten-3"
+                                                class="elevation-3 tile"
+
+                                        >
+                                        </v-select>
+                                     </template>
+                                </v-col>
+                                <v-col
+                                    lg="3"
+                                >
+                                    <v-text-field
+                                            v-model="search"
+                                            clearable
+                                            flat
+                                            solo
+                                            hide-details
+                                            prepend-inner-icon="mdi-magnify"
+                                            label="Søk"
+                                            class="elevation-3 tile"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                        </span>
+                    </v-col>
+                </v-row>
+
+            </template>
             <template v-slot:default="props">
                 <v-row>
                     <v-col
                         cols="12"
                         sm="10"
                         offset-sm="1"
-                        class=" elevation-1 pa-0 mt-5"
+                        class=" elevation-3 pa-0 mt-5 bc-color"
 
                     >
-                        <v-row class="ma-0 grey--text text--lighten-1 pa-0">
+                        <v-row class="ma-0 font-weight-bold grey--text pa-0">
                             <v-col
                                     cols="3"
                             >
@@ -53,7 +110,7 @@
                             <v-hover v-slot:default="{ hover }">
                                 <div
                                     :class="{ 'on-hover': hover }"
-                                    class="font-weight-light"
+                                    class="font-weight-thin"
                                 >
                                     <v-row class="ma-0 pa-0">
                                         <v-col
@@ -69,8 +126,14 @@
                                         <v-col
                                                 cols="3"
                                         >
-                                            {{determineStatus(document.status)}}
-
+                                            <v-chip
+                                                outlined
+                                                :color="determineStatus(document.status).color"
+                                                dark
+                                            >
+                                                <v-icon left>{{determineStatus(document.status).icon}}</v-icon>
+                                                {{determineStatus(document.status).text}}
+                                            </v-chip>
                                         </v-col>
                                         <v-col
                                                 cols="3"
@@ -84,16 +147,30 @@
                     </v-col>
                 </v-row>
             </template>
+            <template v-slot:footer>
+                <span class="mt-5"></span>
+                <v-pagination v-model="page" :length="numberOfPages" class="elevation-0 mt-5 tile"></v-pagination>
+            </template>
         </v-data-iterator>
     </span>
 </template>
 
 <style>
     .on-hover{
-        border: solid 1px rgba(187,222,251,0.8) !important;
-        -moz-box-shadow: 0 0 5px #ccc;
-        -webkit-box-shadow: 0 0 5px #ccc;
-        box-shadow: 0 0 5px #ccc;
+        -moz-box-shadow: 0 0 8px rgba(187,222,251,0.9);
+        -webkit-box-shadow: 0 0 8px rgba(187,222,251,0.9);
+        box-shadow: 0 0 8px rgba(187,222,251,0.9);
+    }
+    .elevation-custom{
+        -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+        box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+    }
+    .tile {
+        border-radius: 0px;
+    }
+    .bc-color{
+        background-color: white;
     }
 </style>
 
@@ -112,26 +189,55 @@
                     {text: 'Åpne dokument', value: 'actions', sortable: false}
 
                 ],
-                documentForUser: []
-
+                documentForUser: [],
+                itemsPerPageArray: [4, 8, 12],
+                itemsPerPage: 4,
+                page: 1,
+                search: '',
+                filter: {},
+                sortDesc: false,
+                sortBy: 'filename',
+                keys: [
+                    'Filnavn',
+                    'Status',
+                    'Størrelse'
+                ]
+            }
+        },
+        computed: {
+            numberOfPages: function () {
+                return Math.ceil(this.documentForUser.length / this.itemsPerPage)
+            },
+            filteredKeys(){
+                return this.keys.filter(key => key !== 'filename')
             }
         },
         methods: {
             capitalize,
             determineStatus(status){
               switch (status) {
-                case 0: return "Venter på signering";
+                case 0: return { text: "Venter på signering", color: "red lighten-2", icon: "mdi-alert-circle-outline"};
                     break;
                 case 1:
-                    return "Delvis signert"
+                    return { text: "Delvis signert", color: "orange lighten-2", icon: "mdi-progress-check"}
                     break;
                 case 2:
-                    return "Signert"
+                    return { text: "Signert", color: "green lighten-2", icon: "mdi-check"}
                     break;
                 default:
                     break;
               }
+            },
+            nextPage() {
+                if (this.page + 1 <= this.numberOfPages()) this.page += 1
+            },
+            formerPage() {
+                if(this.page -1 >= 1) this.page -= 1
+            },
+            updateItemsPerPage(number) {
+                this.itemsPerPage = number
             }
+
         },
         apollo: {
             documentForUser: {
