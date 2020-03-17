@@ -31,6 +31,11 @@ export const DOCUMENT_FOR_USER = gql`
         }
         status
         filePath
+        file{
+            filename
+            contentType
+            byteSize
+        }
     }
   }
 `;
