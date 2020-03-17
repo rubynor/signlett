@@ -1,21 +1,24 @@
 .row.height-100
+  / Column for image side of login
   .col.s1.l4.height-100.valign-wrapper.green.lighten-2
     .container
       .center-align
         = image_tag("icons.png", size: "400x400", :alt => "Image")
+  / Column for right side of login
   .col.s8.height-100
     .notice.red-text
       = notice
     .alert.red-text
       = alert
     .height-25
-    .col.s12.l4.offset-l4
+    .col.s12.l5.offset-l3
       %h3
         Registrer deg!
       %p
         Registrer deg nå for å få alt ut av Signlett.
         Du kan se egne signeringer og se signering andre har sendt til deg!
-    .col.s12.l4.offset-l4
+    / Column for tabs and forms
+    .col.s12.l5.offset-l3
       %ul.tabs
         %li.tab.col
           %a{:href => "#login"}
@@ -23,11 +26,13 @@
         %li.tab.col.indigo-text
           %a{:href => "#signup"}
             Registrer deg
+      / Login form
       #login.section
         =form_tag session_path(:user) do
           = text_field_tag 'user[email]', "", placeholder: "E-post"
           = password_field_tag 'user[password]', "", placeholder: "Passord"
           %button.btn-flat.white-text.green.lighten-2 Logg inn
+      / Signup form
       #signup.section
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
           = devise_error_messages!
