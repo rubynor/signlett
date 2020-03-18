@@ -13,7 +13,7 @@ export const router = new VueRouter({
             path: '/signup',
             component: Signup
         }, {
-            path: '/dokumenter',
+            path: '/',
             component: DocumentList
         },
         {

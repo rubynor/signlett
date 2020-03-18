@@ -81,28 +81,6 @@
                         class=" elevation-3 pa-0 mt-5 bc-color"
 
                     >
-                        <v-row class="ma-0 font-weight-bold grey--text pa-0">
-                            <v-col
-                                    cols="3"
-                            >
-                                Dokument
-                            </v-col>
-                            <v-col
-                                    cols="3"
-                            >
-                                Størrelse
-                            </v-col>
-                            <v-col
-                                    cols="3"
-                            >
-                                Status
-                            </v-col>
-                            <v-col
-                                    cols="3"
-                            >
-                                Handlinger
-                            </v-col>
-                        </v-row>
                         <span
                           v-for="document in props.items"
                             :key="document.id"
@@ -110,22 +88,35 @@
                             <v-hover v-slot:default="{ hover }">
                                 <div
                                     :class="{ 'on-hover': hover }"
-                                    class="font-weight-thin"
+                                    class="font-weight-light"
                                 >
-                                    <v-row class="ma-0 pa-0">
+                                    <v-row class="ma-0 pa-0" :class="'status-' + document.status">
+                                        <!-- Navn -->
                                         <v-col
-                                                cols="3"
                                         >
-                                            {{capitalize(document.file.filename)}}
+                                            <span class="text--secondary font-weight-thin">Dokument</span>
+                                            <br>
+                                            <span>{{capitalize(document.file.filename)}}</span>
                                         </v-col>
+                                        <!-- Størrelse -->
                                         <v-col
-                                                cols="3"
                                         >
+                                            <span class="text--secondary font-weight-thin">Størrelse</span>
+                                            <br>
                                             {{document.file.byteSize/1000}} kb
                                         </v-col>
                                         <v-col
-                                                cols="3"
+
                                         >
+                                            <span class="text--secondary font-weight-thin">Dato</span>
+                                            <br>
+                                            {{document.createdAt}}
+                                        </v-col>
+                                        <!-- Status -->
+                                        <v-col
+                                        >
+                                            <span class="text--secondary font-weight-thin">Status</span>
+                                            <br>
                                             <v-chip
                                                 outlined
                                                 :color="determineStatus(document.status).color"
@@ -136,8 +127,9 @@
                                             </v-chip>
                                         </v-col>
                                         <v-col
-                                                cols="3"
                                         >
+                                            <span class="text--secondary font-weight-thin">Handlinger</span>
+                                            <br>
                                             <v-tooltip
                                                     bottom
                                             >
@@ -175,7 +167,8 @@
                                                     <v-btn
                                                             v-on="on"
                                                             icon
-                                                            color="red lighten-2">
+                                                            color="red lighten-2"
+                                                            @click="deleteDocument(document.id)">
                                                         <v-icon>mdi-trash-can</v-icon>
                                                     </v-btn>
                                                 </template>
@@ -211,7 +204,7 @@
                             </v-col>
                             <v-col
                                     lg="11">
-                              <v-pagination v-model="page" :length="numberOfPages" class="elevation-0 mt-5 tile"></v-pagination>
+                              <v-pagination v-model="page" :length="numberOfPages" class="mt-5 tile"></v-pagination>
                             </v-col>
                             </v-row>
                     </v-col>
@@ -221,11 +214,11 @@
     </span>
 </template>
 
-<style>
+<style scoped>
     .on-hover{
-        -moz-box-shadow: 0 0 8px rgba(187,222,251,0.9);
-        -webkit-box-shadow: 0 0 8px rgba(187,222,251,0.9);
-        box-shadow: 0 0 8px rgba(187,222,251,0.9);
+        -moz-box-shadow: 0 0 10px rgba(187,222,251,0.9);
+        -webkit-box-shadow: 0 0 10px rgba(187,222,251,0.9);
+        box-shadow: 0 0 10px rgba(187,222,251,0.9);
     }
     .elevation-custom{
         -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
@@ -237,6 +230,15 @@
     }
     .bc-color{
         background-color: white;
+    }
+    .status-0 {
+        border-left: solid 3px #E57373;
+    }
+    .status-1 {
+        border-left: solid 3px #FFB74D;
+    }
+    .status-2 {
+        border-left: solid 3px #81C784;
     }
 </style>
 
@@ -266,7 +268,8 @@
                 keys: [
                     'Filnavn',
                     'Status',
-                    'Størrelse'
+                    'Størrelse',
+                    'Dato'
                 ]
             }
         },
@@ -302,6 +305,9 @@
             },
             updateItemsPerPage(number) {
                 this.itemsPerPage = number
+            },
+            deleteDocument(id){
+                console.log(id)
             }
 
         },
