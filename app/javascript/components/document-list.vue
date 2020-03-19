@@ -73,7 +73,7 @@
                                 </span>
 
                     </template>
-                    <template v-slot:default="{ items }">
+                    <template v-slot:default="{ items, expand, isExpanded }">
                         <div
                             class="elevation-3 pa-0 mt-5 bc-color"
                         >
@@ -165,24 +165,32 @@
                                                                     icon
                                                                     color="red lighten-2"
                                                                     @click="deleteDialog = true, selectedDocumentId = document.id">
-
+                                                                <v-icon>mdi-trash-can</v-icon>
                                                             </v-btn>
                                                         </template>
                                                         <span>Slett dokument</span>
                                                     </v-tooltip>
-                                                    <v-btn :input-value="isExpanded(document)" icon class="float-right" @click="expand = !expand, this.selectedDocumentId = document.id">
-                                                        <v-icon>mdi-chevron-down</v-icon>
-                                                    </v-btn>
+                                                    <v-checkbox :input-value="isExpanded(document)" class="float-right mt-0" @change="(v) => expand(document, v)" off-icon="mdi-chevron-down" on-icon="mdi-chevron-down"></v-checkbox>
                                                 </v-col>
                                             </v-row>
                                         </div>
 
                                     </v-hover>
                                     <div
-                                            v-if="isExpanded(document.id)"
+                                            v-if="isExpanded(document)"
                                             :class="'status-' + document.status"
                                     >
-                                        {{document.id}}
+                                        <v-divider></v-divider>
+                                        <ApolloQuery :query="require('../graphql/RecipientForDocument.gql')"
+                                        >
+                                            <template v-slot="{ result: { loading, error, data } }">
+                                                <!-- Result -->
+                                              <div v-if="data" v-bind="recipients = data.recipientForDocument">
+                                                  {{determineRecipient(recipients, document)}}
+                                              </div>
+                                            </template>
+                                        </ApolloQuery>
+                                        <v-divider></v-divider>
                                     </div>
                                 </span>
                         </div>
@@ -209,7 +217,6 @@
                 </v-data-iterator>
             </v-col>
         </v-row>
-
         <v-dialog
             v-model="deleteDialog"
             persistent
@@ -225,7 +232,6 @@
 
             </v-card>
         </v-dialog>
-
     </span>
 </template>
 
@@ -258,10 +264,13 @@
 </style>
 
 <script>
-    import {DOCUMENT_FOR_USER} from "../constants/graphql";
+    import {DOCUMENT_FOR_USER, RECIPIENT_FOR_DOCUMENT} from "../constants/graphql";
     import { capitalize } from "../network/vue-rails";
-
+    import Recipient from './recipient'
     export default {
+        components: {
+            Recipient
+        },
         name: 'DocumentList',
         data() {
             return {
@@ -301,10 +310,14 @@
             }
         },
         methods: {
-            isExpanded(id){
-                expande
-            },
             capitalize,
+            determineRecipient(recipients, document){
+                let prevRecipient = ''
+                for(let recipient of recipients){
+                    console.log(recipient)
+                }
+
+            },
             determineStatus(status){
               switch (status) {
                 case 0: return { text: "Venter på signering", color: "red lighten-2", icon: "mdi-alert-circle-outline"};

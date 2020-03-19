@@ -14,6 +14,28 @@ const resolver = {
         }
     }
 }
+
+environment.loaders.append('gql', {
+    test: /\.(graphql|gql)$/,
+    use: [{
+        loader: 'graphql-tag/loader'
+    }]
+})
+
+environment.loaders.append('vue', {
+    test: /\.vue(\.erb)?$/,
+    use: [{
+        loader: 'vue-loader',
+        options: {
+            transpileOptions: {
+                transforms: {
+                    dangerousTaggedTemplateString: true
+                }
+            }
+        }
+    }]
+})
+
 environment.config.merge(resolver)
 
 module.exports = environment

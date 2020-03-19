@@ -70,4 +70,30 @@ export const UPLOAD_DOCUMENT = gql`
     }   
 `;
 
+export const RECIPIENT_FOR_DOCUMENT = gql`
+    query getRecipients {
+        recipientForDocument{
+            id
+            email
+            document{
+                id
+                createdAt
+                updatedAt
+                user{
+                    firstName
+                    lastName
+                    email
+                }
+                status
+                filePath
+                file{
+                    filename
+                    contentType
+                    byteSize
+                }
+            }
+        }
+    }
+`
+
 

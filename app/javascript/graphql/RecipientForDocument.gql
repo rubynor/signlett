@@ -1,0 +1,12 @@
+query getRecipients {
+    recipientForDocument{
+        id
+        email
+        createdAt
+        updatedAt
+        signed
+        document{
+            id
+        }
+    }
+}
