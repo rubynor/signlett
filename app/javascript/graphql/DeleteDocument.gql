@@ -1,0 +1,7 @@
+mutation deleteDocument($documentId: String!) {
+    deleteDocument(input: {
+        documentId: $documentId
+    }) {
+        message
+    }
+}

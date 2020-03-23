@@ -3,10 +3,14 @@ module Mutations
 
     argument :document_id, ID, required: true
 
+    field :message, String, null: false
+
     def resolve(document_id:)
       document = Document.find(document_id)
       if document.destroy
-        document_id
+        {message: "Document successfully deleted"}
+      else
+        {message: "Could not delete document"}
       end
     end
   end

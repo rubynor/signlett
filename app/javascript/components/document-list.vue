@@ -225,15 +225,25 @@
             persistent
             max-width="290"
         >
-            <v-card>
-                <v-card-title>Er du sikker?<v-icon color="red lighten-2">mdi-alert-circle-outline</v-icon></v-card-title>
-                <v-card-text>Sletter du dokumentet nå kan det ikke gjenopprettes.</v-card-text>
-                <v-card-actions>
-                    <v-btn text @click="deleteDialog = false" color="green lighten-2">Avbryt</v-btn>
-                    <v-btn text @click="deleteDocument(selectedDocumentId)" color="red lighten-2">Slett dokument</v-btn>
-                </v-card-actions>
+            <ApolloMutation
+                :mutation="require('../graphql/DeleteDocument.gql')"
+                :variables="{documentId: this.selectedDocumentId}"
+                :update="updateCache"
+                @done="deleteDialog = false"
+            >
+                <template v-slot="{ mutate, error}">
+                    <v-card>
+                        <v-card-title>Er du sikker?<v-icon color="red lighten-2">mdi-alert-circle-outline</v-icon></v-card-title>
+                        <v-card-text>Sletter du dokumentet nå kan det ikke gjenopprettes.</v-card-text>
+                        <v-card-text v-if="error">Det skjedde en feil: {{error}}</v-card-text>
+                        <v-card-actions>
+                            <v-btn text @click="deleteDialog = false" color="green lighten-2">Avbryt</v-btn>
+                            <v-btn text @click="mutate" color="red lighten-2">Slett dokument</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </template>
+            </ApolloMutation>
 
-            </v-card>
         </v-dialog>
     </span>
 </template>
@@ -267,8 +277,8 @@
 </style>
 
 <script>
-    import {DOCUMENT_FOR_USER, RECIPIENT_FOR_DOCUMENT} from "../constants/graphql";
     import Recipient from './recipient'
+    import DOCUMENT_FOR_USER from "../graphql/DocumentForUser.gql"
 
     // Methods:
     import { capitalize } from "../network/vue-rails";
@@ -324,6 +334,18 @@
                 // TODO - Add alert to say nothing found
             },
             determineStatus,
+            updateCache ( store, {data: { deleteDocument } }) {
+                const query = DOCUMENT_FOR_USER
+                const data = store.readQuery({query: query})
+                const index = data.documentForUser.findIndex(d => d.id === this.selectedDocumentId)
+                if(index !== -1) {
+                    data.documentForUser.splice(index, 1)
+                    store.writeQuery({
+                        query: query,
+                        data,
+                    })
+                }
+            },
             nextPage() {
                 if (this.page + 1 <= this.numberOfPages()) this.page += 1
             },
