@@ -31,7 +31,27 @@
                         <v-icon left>mdi-check</v-icon>
                         Signert
                     </v-chip>
-            </v-col>
+                </v-col>
+                <v-col>
+                    <p class="font-weight-thin">Sist oppdatert</p>
+                    <p class="font-weight-light" :class="compareDate(recObj.updatedAt)">{{recObj.updatedAt}}</p>
+                </v-col>
+                <v-col>
+                    <v-tooltip
+                            bottom
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                    v-on="on"
+                                    icon
+                                    color="green lighten-2"
+                            >
+                                <v-icon>mdi-reminder</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Send varsel</span>
+                    </v-tooltip>
+                </v-col>
         </v-row>
     </div>
      <v-row
@@ -39,7 +59,9 @@
      >
             <v-col>
                 <v-divider class="mx-5"></v-divider>
-                <p class="mt-4">Hendelser</p>
+                <p class="mt-4 font-weight-medium">Hendelser</p>
+                <p class="font-weight-thin">{{document.createdAt}} - {{document.user.firstName}} sendte ut dokumentet til signering
+                </p>
             </v-col>
         </v-row>
  </div>
@@ -55,7 +77,13 @@
             }
         },
         methods: {
-            isSigned(signed){
+            compareDate(recDate){
+                let dateOne = new Date(recDate)
+                const oneDay = 60 * 60 * 24 *1000
+                const daysPassed = (new Date - dateOne)/oneDay
+                if(daysPassed > 1) {
+                    return "red--text text-lighten-2"
+                }
 
             }
         },
