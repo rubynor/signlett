@@ -265,8 +265,12 @@
 
 <script>
     import {DOCUMENT_FOR_USER, RECIPIENT_FOR_DOCUMENT} from "../constants/graphql";
-    import { capitalize } from "../network/vue-rails";
     import Recipient from './recipient'
+
+    // Methods:
+    import { capitalize } from "../network/vue-rails";
+    import { makeRecipientArray } from "../functions";
+
     export default {
         components: {
             Recipient
@@ -312,11 +316,9 @@
         methods: {
             capitalize,
             determineRecipient(recipients, document){
-                let prevRecipient = ''
-                for(let recipient of recipients){
-                    console.log(recipient)
-                }
-
+                if(makeRecipientArray(recipients,document) !== null)
+                    return makeRecipientArray(recipients, document)
+                // TODO - Add alert to say nothing found
             },
             determineStatus(status){
               switch (status) {
