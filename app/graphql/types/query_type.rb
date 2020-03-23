@@ -54,7 +54,7 @@ module Types
     def recipient_for_document
       curr_user = context[:current_user]
       documents = Document.where(user_id: curr_user.id)
-      Recipient.where(document_id: documents.ids)
+      Recipient.where(document_id: documents.ids).order(updated_at: :desc)
     end
 
 

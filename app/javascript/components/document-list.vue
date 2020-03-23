@@ -186,7 +186,10 @@
                                             <template v-slot="{ result: { loading, error, data } }">
                                                 <!-- Result -->
                                               <div v-if="data" v-bind="recipients = data.recipientForDocument">
-                                                  {{determineRecipient(recipients, document)}}
+                                                  <Recipient
+                                                    :recipient="determineRecipient(recipients, document)"
+                                                    :document="document"
+                                                  />
                                               </div>
                                             </template>
                                         </ApolloQuery>
@@ -269,7 +272,7 @@
 
     // Methods:
     import { capitalize } from "../network/vue-rails";
-    import { makeRecipientArray } from "../functions";
+    import { makeRecipientArray, determineStatus } from "../functions";
 
     export default {
         components: {
@@ -320,20 +323,7 @@
                     return makeRecipientArray(recipients, document)
                 // TODO - Add alert to say nothing found
             },
-            determineStatus(status){
-              switch (status) {
-                case 0: return { text: "Venter på signering", color: "red lighten-2", icon: "mdi-alert-circle-outline"};
-                    break;
-                case 1:
-                    return { text: "Delvis signert", color: "orange lighten-2", icon: "mdi-progress-check"}
-                    break;
-                case 2:
-                    return { text: "Signert", color: "green lighten-2", icon: "mdi-check"}
-                    break;
-                default:
-                    break;
-              }
-            },
+            determineStatus,
             nextPage() {
                 if (this.page + 1 <= this.numberOfPages()) this.page += 1
             },

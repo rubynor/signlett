@@ -1,22 +1,48 @@
 <template>
- <span
+ <div
     v-if="recipient"
+    class="mx-auto grey lighten-4"
  >
-     <v-container>
-         <v-stepper vertical v-model="e6">
-             <v-stepper-step :complete="e6 > 1" step="1">
-                 Dokument lastet opp
-             </v-stepper-step>
-             <v-stepper-content step="1">
-                 <v-icon color="success">mdi-check-circle-outline</v-icon>
-                 {{document.user.firstName}} lastet opp et dokument for signering
-             </v-stepper-content>
-         </v-stepper>
-         <v-stepper-step :complete="e6 > 2" step="2">
-             {{recipient.email}}
-         </v-stepper-step>
-     </v-container>
- </span>
+    <div
+            v-for="recObj in recipient"
+    >
+            <v-row class="mx-auto">
+                <v-col
+                    class="font-weight-light"
+                >
+                    Mottaker: {{recObj.email}}
+                </v-col>
+                <v-col>
+                    <v-chip
+                            outlined
+                            color="red lighten-2"
+                            dark
+                            v-if="!recObj.signed"
+                    >
+                        <v-icon left>mdi-alert-circle-outline</v-icon>
+                        Ikke signert
+                    </v-chip>
+                    <v-chip
+                            outlined
+                            color="green lighten-2"
+                            v-if="recObj.signed"
+                            dark
+                    >
+                        <v-icon left>mdi-check</v-icon>
+                        Signert
+                    </v-chip>
+            </v-col>
+        </v-row>
+    </div>
+     <v-row
+         class="mx-auto"
+     >
+            <v-col>
+                <v-divider class="mx-5"></v-divider>
+                <p class="mt-4">Hendelser</p>
+            </v-col>
+        </v-row>
+ </div>
 </template>
 
 <script>
@@ -25,14 +51,14 @@
         props: ['recipient', 'document'],
         data(){
             return {
-                e6: 1
+                e1: 1
             }
         },
         methods: {
             isSigned(signed){
 
             }
-        }
+        },
 
     }
 </script>

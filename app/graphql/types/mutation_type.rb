@@ -3,5 +3,6 @@ module Types
     field :create_user, mutation: Mutations::CreateUser
     field :login, mutation: Mutations::Login
     field :create_document, mutation: Mutations::CreateDocument
+    field :delete_document, mutation: Mutations::DeleteDocument
   end
 end
