@@ -54,16 +54,36 @@
                 </v-col>
         </v-row>
     </div>
-     <v-row
-         class="mx-auto"
-     >
-            <v-col>
-                <v-divider class="mx-5"></v-divider>
-                <p class="mt-4 font-weight-medium">Hendelser</p>
-                <p class="font-weight-thin">{{document.createdAt}} - {{document.user.firstName}} sendte ut dokumentet til signering
-                </p>
-            </v-col>
-        </v-row>
+
+         <ApolloQuery
+            :query="require('../graphql/EventForDocument.gql')"
+            :variables="{documentId: document.id}"
+         >
+             <template v-slot="{ result: {error, data} }">
+                 <v-row
+                         class="mx-auto"
+                         v-if="data && data.eventForDocument"
+                         v-bind="events = data.eventForDocument"
+                 >
+                         <v-col>
+                             <v-divider class="mx-5"></v-divider>
+                             <p class="mt-4 font-weight-medium">Hendelser</p>
+                             <p class="font-weight-thin" v-for="event in events">{{event.createdAt}} - {{event.message}}</p>
+                         </v-col>
+
+                 </v-row>
+                 <v-row
+                         class="mx-auto"
+                         v-if="error"
+                 >
+                     <v-col>
+                         <v-divider class="mx-5"></v-divider>
+                         <p class="mt-4 font-weight-medium">Hendelser</p>
+                         <p class="font-weight-thin">{{error}}</p>
+                     </v-col>
+                 </v-row>
+             </template>
+         </ApolloQuery>
  </div>
 </template>
 
