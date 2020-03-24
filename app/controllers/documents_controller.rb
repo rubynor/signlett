@@ -37,7 +37,7 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # Method for only sending mail to the first recipient
+  # Method for only sending mail to the first recipient that is not sent yet
   def send_mail(document)
     recipient = Recipient.where(document: document, sent: false).first
     if recipient.present?
