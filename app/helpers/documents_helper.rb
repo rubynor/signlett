@@ -8,4 +8,6 @@ module DocumentsHelper
   def full_name
     current_user.first_name.concat(" #{current_user.last_name}")
   end
+
+
 end

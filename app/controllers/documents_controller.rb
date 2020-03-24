@@ -22,6 +22,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(status: params[:document][:status], file: params[:document][:file])
     @document.user_id = current_user.id
     if @document.save
+      DocumentEvent.create!(document: @document, message: "CREATED")
       @document.update!(file_path: rails_blob_path(@document.file, disposition: 'preview'))
       email_array.each do |email|
         @recipient = Recipient.new(document_id: @document.id, email: email)
@@ -32,15 +33,22 @@ class DocumentsController < ApplicationController
         else
           Document.delete(@document.id)
         end
-        render json: @document
       end
-
     else
       puts @document.errors.full_messages
       render json: @document.errors
     end
   end
 
+  # Method for only sending mail to the first recipient
+  def send_mail(document)
+    recipient = Recipient.where(document: document, signed: false).first
+    if recipient.present?
+      DocumentMailer.with(user: document.user,
+                          email: recipient.email,
+                          document: document).signature_email.deliver_later
+    end
+  end
 
   protected
 
