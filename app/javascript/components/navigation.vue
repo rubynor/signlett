@@ -54,7 +54,7 @@
         data(){
             return {
                 items: [
-                    {title: 'Mine dokumenter', icon: 'mdi-file-document', route: '/dokumenter'},
+                    {title: 'Mine dokumenter', icon: 'mdi-file-document', route: '/'},
                     {title: 'Ny signering', icon: 'mdi-file-document-box-plus', route: '/ny-signering'},
                     {title: 'Profil', icon: 'mdi-account', route: '/signup'},
                 ],

@@ -29,10 +29,10 @@ class DocumentsController < ApplicationController
           DocumentMailer.with(user: current_user,
                               email: @recipient.email,
                               document: @document).signature_email.deliver_later
-          render json: @document
         else
           Document.delete(@document.id)
         end
+        render json: @document
       end
 
     else

@@ -47,14 +47,14 @@ module Types
     end
 
     def document_for_user
-      currUser = context[:current_user]
-      Document.where(user_id: currUser.id)
+      curr_user = context[:current_user]
+      Document.where(user_id: curr_user.id)
     end
 
     def recipient_for_document
-      currUser = context[:current_user]
-      documents = Document.where(user_id: currUser.id)
-      Recipient.where(document_id: documents.ids)
+      curr_user = context[:current_user]
+      documents = Document.where(user_id: curr_user.id)
+      Recipient.where(document_id: documents.ids).order(updated_at: :desc)
     end
 
 

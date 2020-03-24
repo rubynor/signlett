@@ -1,0 +1,19 @@
+query documents{
+    documentForUser {
+        id
+        createdAt
+        updatedAt
+        user{
+            firstName
+            lastName
+            email
+        }
+        status
+        filePath
+        file{
+            filename
+            contentType
+            byteSize
+        }
+    }
+}

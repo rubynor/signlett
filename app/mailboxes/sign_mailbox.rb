@@ -4,9 +4,8 @@ class SignMailbox < ApplicationMailbox
   before_processing :document_id
 
   def process
-    document = Document.find(document_id)
-    if document.present?
-      recipient = Recipient.where(email: mail.from, document_id: document_id)
+    if find_document
+      recipient = find_recipient
       if recipient.present?
         if document.update(file: attachment)
           document.update!(file_path: Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true))
@@ -29,6 +28,14 @@ class SignMailbox < ApplicationMailbox
   def document_id
   recipient = mail.recipients.find { |r| MATCHER.match?(r) }
   recipient[MATCHER, 1]
+  end
+
+  def find_recipient
+    Recipient.where(email: mail.from, document_id: document_id)
+  end
+
+  def find_document
+    Document.find(document_id)
   end
 
   #Alternative to the make_attachment method
