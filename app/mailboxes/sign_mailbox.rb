@@ -5,21 +5,25 @@ class SignMailbox < ApplicationMailbox
 
   def process
     document = find_document
-    if document.present?
-      recipient = find_recipient
-      if recipient.present?
-        if document.update(file: attachment)
-          document.update!(file_path: Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true))
-          DocumentEvent.create!(document: document, message: "#{mail.from[0]} signerte dokumentet")
-          recipient.update(signed: true)
-          send_mail(document)
+    if attachment.present?
+      if document.present?
+        recipient = find_recipient
+        if recipient.present?
+          if document.update(file: attachment)
+            document.update!(file_path: Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true))
+            DocumentEvent.create!(document: document, message: "#{mail.from[0]} signerte dokumentet")
+            recipient.update(signed: true)
+            send_new_mail(document)
+          end
         end
       end
+    else
+      send_not_allowed_mail(document)
     end
   end
 
   # Method for only sending mail to the first recipient that is not sent yet
-  def send_mail(document)
+  def send_new_mail(document)
     recipient = Recipient.where(document: document, sent: false).first
     if recipient.present?
       DocumentMailer.with(user: document.user,
@@ -33,6 +37,12 @@ class SignMailbox < ApplicationMailbox
     else
       document.update!(status: 2)
     end
+  end
+
+  def send_not_allowed_mail(document)
+    DocumentMailer.with(user: document.user,
+                        email: mail.from[0],
+                        document: document).no_attachment_email.deliver_later
   end
 
   def make_attachment
