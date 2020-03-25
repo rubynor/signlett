@@ -32,10 +32,16 @@
           = text_field_tag 'user[email]', "", placeholder: "E-post"
           = password_field_tag 'user[password]', "", placeholder: "Passord"
           %button.btn-flat.white-text.green.lighten-2 Logg inn
+          / Modal Trigger
+          %br
+          %a.waves-effect.waves-light.modal-trigger{:href => "#forgotten_password_modal"} Glemt passordet?
+          %br
+          %a.waves-effect.waves-light.modal-trigger{:href => "#reset_confirmation_modal"} Send ny bekreftelse
+
       / Signup form
       #signup.section
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-          = devise_error_messages!
+          = render "devise/shared/error_messages", resource: resource
           .input-field
             = f.text_field :first_name, placeholder: "Fornavn"
             %i.material-icons.prefix
@@ -50,10 +56,37 @@
           .input-field
             = f.password_field :password_confirmation, placeholder: "Bekreft passord"
           .input-field
-            = f.submit "Registrer deg", class: "btn-flat green lighten- white-text "
+            = f.submit "Registrer deg", class: "btn-flat green lighten-2 white-text "
+      / Modal Structure
+      #forgotten_password_modal.modal
+        .modal-content
+          %h3 Glemt passordet?
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .input-field
+              %br/
+              = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-post"
+            .modal-footer
+              %a.modal-close.red-text.btn-flat{:href => "#!"} Avbryt
+              = f.submit "Tilbakestill passord", class: "blue-text btn-flat"
+      #reset_confirmation_modal.modal
+        .modal-content
+          %h3 Resend confirmation instructions
+          = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .field
+              = f.label :email
+              %br/
+              = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+            .actions
+            .modal-footer
+              %a.modal-close.red-text.btn-flat{:href => "#!"} Avbryt
+              = f.submit "Send bekreftelse på nytt", class: "blue-text btn-flat"
+
 
 
 :javascript
     $(document).ready(function(){
       $('.tabs').tabs();
+      $('.modal').modal();
     });
