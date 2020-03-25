@@ -61,7 +61,7 @@ module Types
     def recipient_for_document
       curr_user = context[:current_user]
       documents = Document.where(user_id: curr_user.id)
-      Recipient.where(document_id: documents.ids).order(updated_at: :desc)
+      Recipient.where(document_id: documents.ids).order(created_at: :asc)
     end
 
     def event_for_document(document_id:)
