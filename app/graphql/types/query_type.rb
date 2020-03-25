@@ -15,6 +15,13 @@ module Types
       description "Find recipients for given document"
     end
 
+    # Event queries
+
+    field :event_for_document, [DocumentEventType], null: false do
+      description "Find all events by document"
+      argument :document_id, ID, required: true
+    end
+
     # User queries
     field :find_user, UserType, null: false do
       description "Find user by ID"
@@ -54,7 +61,11 @@ module Types
     def recipient_for_document
       curr_user = context[:current_user]
       documents = Document.where(user_id: curr_user.id)
-      Recipient.where(document_id: documents.ids).order(updated_at: :desc)
+      Recipient.where(document_id: documents.ids).order(created_at: :asc)
+    end
+
+    def event_for_document(document_id:)
+      DocumentEvent.where(document_id: document_id)
     end
 
 

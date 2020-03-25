@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    :css
+      /* Email styles need to be inline */
+  %body
+    %h1
+      Du mangler vedlegg i din e-post!
+
+
+    %p
+      Du prøvde å sende inn en e-post som ble sendt fra
+      = @user.first_name
+    %p
+      For å fullføre signeringen svarer du bare på denne e-posten med ferdig signert dokument
+    %p
+      Eller oppretter en bruker med
+      = @email
