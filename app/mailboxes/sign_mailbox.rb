@@ -1,7 +1,7 @@
 class SignMailbox < ApplicationMailbox
   MATCHER = /signature-(.+)@signlett.com/i
 
-  before_processing :document_id
+  before_processing :email_token
 
   def process
     document = find_document
@@ -13,6 +13,7 @@ class SignMailbox < ApplicationMailbox
             document.update!(file_path: Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true))
             DocumentEvent.create!(document: document, message: "#{mail.from[0]} signerte dokumentet")
             recipient.update(signed: true)
+            document.regenerate_email_token
             send_new_mail(document)
           end
         end
@@ -39,37 +40,16 @@ class SignMailbox < ApplicationMailbox
     end
   end
 
+  # Method for sending mail if no attachment is found
   def send_not_allowed_mail(document)
     DocumentMailer.with(user: document.user,
                         email: mail.from[0],
                         document: document).no_attachment_email.deliver_later
   end
 
-  def make_attachment
-    mail.attachments.each do |attachment|
-      filename = attachment.filename
-      begin
-        return File.new(filename, "w") {|f| f.write attachment.decoded}
-      end
-    end
-  end
-
-  def document_id
-  recipient = mail.recipients.find { |r| MATCHER.match?(r) }
-  recipient[MATCHER, 1]
-  end
-
-  def find_recipient
-    Recipient.where(email: mail.from, document_id: document_id)
-  end
-
-  def find_document
-    Document.find(document_id)
-  end
-
-  #Alternative to the make_attachment method
+  # Method for making a viable ActiveStorage blob from attachment
   def attachment
-     mail.attachments.map do |attachment|
+    mail.attachments.map do |attachment|
       blob = ActiveStorage::Blob.create_after_upload!(
           io: StringIO.new(attachment.decoded),
           filename: attachment.filename,
@@ -78,4 +58,19 @@ class SignMailbox < ApplicationMailbox
       return blob
     end
   end
+
+  # Retrieve email_token from mail
+  def email_token
+  recipient = mail.recipients.find { |r| MATCHER.match?(r) }
+  recipient[MATCHER, 1]
+  end
+
+  def find_recipient
+    Recipient.where(email: mail.from, document: find_document)
+  end
+
+  def find_document
+    Document.find_by_email_token(email_token)
+  end
+
 end
