@@ -37,6 +37,7 @@ class SignMailbox < ApplicationMailbox
       end
     else
       document.update!(status: 2)
+      send_signature_complete_mail(document)
     end
   end
 
@@ -45,6 +46,14 @@ class SignMailbox < ApplicationMailbox
     DocumentMailer.with(user: document.user,
                         email: mail.from[0],
                         document: document).no_attachment_email.deliver_later
+  end
+
+  # Method for sending mail notifying signatures are complete
+  def send_signature_complete_mail(document)
+    DocumentMailer.with(email: document.user.email,
+                        document: document).signing_complete.deliver_later
+    DocumentEvent.create!(document: document, message: "Varsel om ferdig signering sendt til #{document.user.email} ")
+
   end
 
   # Method for making a viable ActiveStorage blob from attachment
