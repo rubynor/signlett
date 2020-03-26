@@ -1,0 +1,7 @@
+{
+    userLoggedIn @client{
+        email
+        firstName
+        lastName
+        }
+}

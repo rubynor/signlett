@@ -1,15 +1,25 @@
 <template>
-    <v-form>
         <v-container>
-            <ApolloMutation
-
-            >
-
-            </ApolloMutation>
+            {{userLoggedIn}}
         </v-container>
-    </v-form>
 </template>
 
 <script>
+    import userLocalQuery from '../graphql/UserLocal.gql'
 
+    export default {
+        data() {
+            return {
+                userLoggedIn: [],
+            }
+        },
+        methods: {
+
+        },
+        apollo: {
+            userLoggedIn: {
+                query: userLocalQuery
+            }
+        }
+    }
 </script>

@@ -1,6 +1,20 @@
 <template>
   <v-app class="bc-color">
-    <navigation/>
+    <ApolloQuery
+            :query="require('../graphql/LoggedInUser.gql')"
+    >
+      <template v-slot="{ result: {error, data} }">
+        <span
+          v-if="data && data.userLoggedIn"
+          v-bind="user = data.userLoggedIn"
+        >
+          <navigation
+                :user="user"
+          />
+        </span>
+
+      </template>
+    </ApolloQuery>
     <router-view></router-view>
   </v-app>
 </template>
