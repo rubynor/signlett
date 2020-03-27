@@ -8,7 +8,7 @@ class DocumentMailer < ApplicationMailer
 
     attachments[@document.file.filename.to_s] = { mime_type: 'application/pdf', content: @document.file.download}
     mail(to: @email,
-         reply_to: 'signature-' + @document.id.to_s + '@signlett.com',
+         reply_to: 'signature-' + @document.email_token.to_s + '@signlett.com',
          subject: 'Du har et dokument til signering')
   end
 
@@ -18,7 +18,17 @@ class DocumentMailer < ApplicationMailer
     @document = params[:document]
 
     mail(to: @email,
-         reply_to: 'signature-' + @document.id.to_s + '@signlett.com',
+         reply_to: 'signature-' + @document.email_token.to_s + '@signlett.com',
          subject: 'Du mangler vedlegg')
+  end
+
+  def signing_complete
+    @email = params[:email]
+    @document = params[:document]
+
+    attachments[@document.file.filename.to_s] = { mime_type: 'application/pdf', content: @document.file.download}
+
+    mail(to: @email,
+         subject: 'Signeringer gjennomført')
   end
 end

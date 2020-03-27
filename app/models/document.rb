@@ -1,5 +1,10 @@
 class Document < ApplicationRecord
+
+  default_scope { order(created_at: :asc)}
+
   belongs_to :user
+
+  has_secure_token :email_token
 
   has_many :recipient, dependent: :destroy
   has_many :document_events, dependent: :destroy
