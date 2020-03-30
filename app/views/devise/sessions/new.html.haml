@@ -1,24 +1,23 @@
 .row.height-100
   / Column for image side of login
-  .col.s1.l4.height-100.valign-wrapper.green.lighten-2
+  .col.s1.l4.height-100.valign-wrapper.green.lighten-2.hide-on-med-and-down
     .container
       .center-align
         = image_tag("icons.png", size: "400x400", :alt => "Image")
   / Column for right side of login
-  .col.s8.height-100
-    .notice.red-text
-      = notice
-    .alert.red-text
-      = alert
-    .height-25
+  .col.s12.m8.height-100
+    .height-25.hide-on-med-and-down
     .col.s12.l5.offset-l3
+      - if alert
+        .alert-box.pa-4.dark
+          = alert
       %h3
         Registrer deg!
       %p
         Registrer deg nå for å få alt ut av Signlett.
         Du kan se egne signeringer og se signering andre har sendt til deg!
     / Column for tabs and forms
-    .col.s12.l5.offset-l3
+    .col.m12.l5.offset-l3
       %ul.tabs
         %li.tab.col
           %a{:href => "#login"}
@@ -90,3 +89,10 @@
       $('.tabs').tabs();
       $('.modal').modal();
     });
+
+    function makeAlert() {
+      document.getElementById('alert').style.backgroundColor="green"
+      // setTimeout(() => {
+      //   document.getElementById('alert').style.color="green"
+      // }, 3000)
+    }

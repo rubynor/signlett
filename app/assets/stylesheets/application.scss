@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+
 body, html {
   height: 100%;
 }
@@ -41,6 +43,7 @@ body, html {
 
 /// MY CUSTOM COLOR VARIABLES
 $custom-color: #81c784;
+$warning-opacity-80: rgba(255, 183, 77, 0.8);
 
 // RESTYLING THE TABS USING THE CUSTOM VARIABLE
 .tabs {
@@ -58,4 +61,21 @@ $custom-color: #81c784;
     }
   }
   .indicator {background-color: $custom-color !important;}
+}
+
+
+.alert-box {
+  margin-top: 5px;
+  background-color: $warning-opacity-80;
+  opacity: 0.8;
+  border-radius: 5px;
+  border-left: solid 5px orange;
+}
+
+.pa-4 {
+  padding: 10px;
+}
+
+.dark {
+  color: white;
 }
