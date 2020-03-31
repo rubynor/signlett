@@ -8,7 +8,7 @@
     >
         <v-list-item two-line>
             <v-list-item-content>
-                <v-list-item-title>Ove Simon Wernersson</v-list-item-title>
+                <v-list-item-title>{{user.firstName}} {{user.lastName}}</v-list-item-title>
                 <v-list-item-subtitle>Innlogget</v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
@@ -62,6 +62,7 @@
         },
         methods: {
             logout
-        }
+        },
+        props: ['user']
     }
 </script>

@@ -50,18 +50,15 @@ module Types
     end
 
     def user_logged_in
-      context[:current_user]
+      current_user
     end
 
     def document_for_user
-      curr_user = context[:current_user]
-      Document.where(user_id: curr_user.id)
+      current_user.documents
     end
 
     def recipient_for_document
-      curr_user = context[:current_user]
-      documents = Document.where(user_id: curr_user.id)
-      Recipient.where(document_id: documents.ids).order(created_at: :asc)
+      Recipient.where(document: current_user.documents)
     end
 
     def event_for_document(document_id:)

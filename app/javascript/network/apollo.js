@@ -7,7 +7,7 @@ import VueApollo from "vue-apollo";
 import {getCsrfToken} from "./vue-rails";
 import {ApolloLink} from "apollo-link";
 import {createUploadLink} from "apollo-upload-client";
-import {BatchHttpLink} from "apollo-link-batch-http";
+import gql from 'graphql-tag';
 
 const authLink = setContext((_, { headers }) => {
    return {
@@ -32,11 +32,23 @@ const httpLinkUpload = ApolloLink.split(
 
 const cache = new InMemoryCache();
 
+export const typeDefs = gql`
+  type user {
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!    
+  }
+`;
+
 const apolloClient = new ApolloClient({
     link: authLink.concat(httpLinkUpload),
-    cache: cache
+    cache: cache,
+    typeDefs,
+    resolvers: {}
 });
 
 export const apolloProvider = new VueApollo({
     defaultClient: apolloClient,
 })
+

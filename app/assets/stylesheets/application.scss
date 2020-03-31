@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+
 body, html {
   height: 100%;
 }
@@ -40,22 +42,51 @@ body, html {
 }
 
 /// MY CUSTOM COLOR VARIABLES
-$custom-color: #81c784;
+$tab-color: #81c784;
+$warning: #FFA726;
+$warning-border: #F57C00;
 
 // RESTYLING THE TABS USING THE CUSTOM VARIABLE
 .tabs {
   .tab {
     a {
-      color: $custom-color !important;
-      &.active {color: $custom-color !important;}
-      &:hover {color: $custom-color !important;}
+      color: $tab-color !important;
+      &.active {color: $tab-color !important;}
+      &:hover {color: $tab-color !important;}
       &:focus {
-        background-color: rgba($custom-color, 0.1) !important;
+        background-color: rgba($tab-color, 0.1) !important;
         &.active{
-          background-color: rgba($custom-color, 0.1) !important;
+          background-color: rgba($tab-color, 0.1) !important;
         }
       }
     }
   }
-  .indicator {background-color: $custom-color !important;}
+  .indicator {background-color: $tab-color !important;}
+}
+
+
+.alert-box {
+  margin-top: 5px;
+  background-color: $warning;
+  opacity: 0.8;
+  border-radius: 5px;
+  border-left: solid 5px $warning-border;
+}
+
+
+.pa-4 {
+  padding: 10px;
+}
+
+.dark {
+  color: white;
+}
+
+.v-spacer{
+  margin: 0px 5px 0 5px;
+}
+
+.v-spacer{
+  margin-left: 5px;
+  margin-right: 5px;
 }

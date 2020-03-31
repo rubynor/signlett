@@ -7,7 +7,7 @@ import { router } from "./routes";
 // Components
 import App from '../components/app.vue'
 import LoginForm from '../components/login_form'
-import SignupForm from '../components/signup_form'
+import SignupForm from '../components/edit_user'
 
 Vue.component('app', App)
 Vue.component('login', LoginForm)
