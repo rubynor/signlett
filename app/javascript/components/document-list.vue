@@ -56,6 +56,7 @@
                                         </v-col>
                                         <v-col
                                                 lg="3"
+                                                sm="6"
                                         >
                                             <v-text-field
                                                     v-model="search"
@@ -69,6 +70,11 @@
                                             >
                                             </v-text-field>
                                         </v-col>
+                                        <v-col
+                                        >
+                                            <v-btn large class="float-right green lighten-2 tile" dark><v-icon left>mdi-plus</v-icon>Ny signering</v-btn>
+                                        </v-col>
+
                                     </v-row>
                                 </span>
 
