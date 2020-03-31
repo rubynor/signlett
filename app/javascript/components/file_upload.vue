@@ -1,21 +1,6 @@
 <template>
     <v-container>
-        <v-alert
-            :value="successAlert"
-            text
-            type="success"
-            border="left"
-        >
-            {{ this.alertMessage }}
-        </v-alert>
-        <v-alert
-                :value="errorAlert"
-                text
-                type="error"
-                border="left"
-        >
-            {{ this.alertMessage }}
-        </v-alert>
+        <AlertWindow :alert-content="alertObject"/>
         <v-card outlined tile class="px-8">
             <v-card
                     outlined
@@ -109,6 +94,7 @@
 
 <script>
     import axios from 'axios'
+    import AlertWindow from './alert_window'
 
     export default {
         data() {
@@ -125,9 +111,11 @@
                     v => !!v || 'E-mail is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
                 ],
-                alertMessage: '',
-                successAlert: false,
-                errorAlert: false,
+                alertObject: {
+                    message: '',
+                    show: false,
+                    type: ''
+                }
             }
         },
         methods: {
@@ -186,36 +174,54 @@
             uploadFileAxios() {
                 if(this.$refs.form.validate()){
                     const file = this.files[0]
-                    const email = this.makeEmailArray()
+                    if(file) {
+                        const email = this.makeEmailArray()
 
-                    const paramsDocument = {
-                        'document[file]': file,
-                        'document[status]': 0,
-                        'document[email]': email
+                        const paramsDocument = {
+                            'document[file]': file,
+                            'document[status]': 0,
+                            'document[email]': email
+                        }
+
+                        let formData = new FormData()
+
+                        Object.entries(paramsDocument).forEach(
+                            ([key, value]) => formData.append(key, value)
+                        )
+
+                        axios.post('/documents', formData).then(response => {
+                            this.successAlert = true
+                            this.errorAlert = false
+                            this.files = []
+                            this.emailRecipient = [{email: ''}]
+                            this.makeAlert("Dokument lastet opp til signering", "success")
+
+                            this.$refs.form.resetValidation()
+                        }).catch(error => {
+                            this.makeAlert("Dokument kunne ikke lastest opp." + error, "error")
+
+                        })
+                    } else {
+                        this.makeAlert("Du må velge et dokument til opplasting", "error")
                     }
 
-                    let formData = new FormData()
-
-                    Object.entries(paramsDocument).forEach(
-                        ([key, value]) => formData.append(key, value)
-                    )
-
-                    axios.post('/documents', formData).then(response => {
-                        this.successAlert = true
-                        this.errorAlert = false
-                        this.files = []
-                        this.emailRecipient = [{email: ''}]
-                        this.alertMessage = "Dokument lastet opp til signering"
-                        this.$refs.form.resetValidation()
-                    }).catch(error => {
-                        this.successAlert = false
-                        this.errorAlert = true
-                        this.alertMessage = "Dokument kunne ikke lastest opp." + error
-                    })
+                }
+            },
+            makeAlert(message, type){
+                this.alertObject = {
+                    show: true,
+                    type: type,
+                    message: message
                 }
 
+                setTimeout(() => {
+                    this.alertObject.show = false
+                }, 3000)
 
             }
+        },
+        components: {
+            AlertWindow
         }
     }
 </script>
