@@ -72,7 +72,7 @@
                                         </v-col>
                                         <v-col
                                         >
-                                            <v-btn large class="float-right green lighten-2 tile" dark><v-icon left>mdi-plus</v-icon>Ny signering</v-btn>
+                                            <v-btn large class="float-right green lighten-2 tile" dark @click="fileUploadDialog = true"><v-icon left>mdi-plus</v-icon>Ny signering</v-btn>
                                         </v-col>
 
                                     </v-row>
@@ -251,6 +251,9 @@
             </ApolloMutation>
 
         </v-dialog>
+        <FileUploadDialog
+                :dialog.sync="fileUploadDialog"
+        />
     </span>
 </template>
 
@@ -284,6 +287,7 @@
 
 <script>
     import Recipient from './recipient'
+    import FileUploadDialog from './file_upload_dialog'
     import DOCUMENT_FOR_USER from "../graphql/DocumentForUser.gql"
 
     // Methods:
@@ -292,7 +296,8 @@
 
     export default {
         components: {
-            Recipient
+            Recipient,
+            FileUploadDialog
         },
         name: 'DocumentList',
         data() {
@@ -319,6 +324,7 @@
                     'Dato'
                 ],
                 deleteDialog: false,
+                fileUploadDialog: false,
                 selectedDocumentId: null,
                 expand: false,
 

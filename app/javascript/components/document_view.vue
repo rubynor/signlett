@@ -1,10 +1,13 @@
 <template>
-    <DocumentList/>
-
+    <span>
+        <DocumentList/>
+        <FileUpload/>
+    </span>
 </template>
 
 <script>
     import DocumentList from './document-list'
+    import FileUpload from './file_upload_dialog'
 
     export default {
         data(){
@@ -13,7 +16,8 @@
             }
         },
         components: {
-            DocumentList
+            DocumentList,
+            FileUpload
         }
     }
 </script>
