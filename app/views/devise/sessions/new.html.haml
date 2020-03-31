@@ -11,6 +11,9 @@
       - if alert
         .alert-box.pa-4.dark
           = alert
+      - if resource.errors.any?
+        .alert-box.pa-4.dark
+          = render "devise/shared/error_messages", resource: resource
       %h3
         Registrer deg!
       %p
@@ -31,43 +34,19 @@
           = text_field_tag 'user[email]', "", placeholder: "E-post"
           = password_field_tag 'user[password]', "", placeholder: "Passord"
           %button.btn-flat.white-text.green.lighten-2 Logg inn
-          / Modal Trigger
-          %br
-          %a.waves-effect.waves-light.modal-trigger{:href => "#forgotten_password_modal"} Glemt passordet?
-          %br
-          %a.waves-effect.waves-light.modal-trigger{:href => "#reset_confirmation_modal"} Send ny bekreftelse
+          = link_to "Send ny bekreftelse",new_confirmation_path(resource_name), class: "v-spacer"
+          = link_to "Glemt passordet?",new_password_path(resource_name)
 
       / Signup form
       #signup.section
-        = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-          = render "devise/shared/error_messages", resource: resource
-          .input-field
-            = f.text_field :first_name, placeholder: "Fornavn"
-            %i.material-icons.prefix
-              mode_edit
-          .input-field
-            = f.text_field :last_name, placeholder: "Etternavn"
-          .input-field
-            = f.email_field :email, placeholder: "E-post", class: "validate"
-            %span.helper-text{"data-error" => "Fyll inn en gyldig e-post adresse", "data-success" => "Riktig!"}
-          .input-field
-            = f.password_field :password, placeholder: "Passord"
-          .input-field
-            = f.password_field :password_confirmation, placeholder: "Bekreft passord"
-          .input-field
-            = f.submit "Registrer deg", class: "btn-flat green lighten-2 white-text "
-      / Modal Structure
-      #forgotten_password_modal.modal
-        .modal-content
-          %h3 Glemt passordet?
-          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-            = render "devise/shared/error_messages", resource: resource
-            .input-field
-              %br/
-              = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-post"
-            .modal-footer
-              %a.modal-close.red-text.btn-flat{:href => "#!"} Avbryt
-              = f.submit "Tilbakestill passord", class: "blue-text btn-flat"
+        =form_tag registration_path(:user) do
+          = text_field_tag 'user[first_name]', "", placeholder: "Fornavn"
+          = text_field_tag 'user[last_name]', "", placeholder: "Etternavn"
+          = text_field_tag 'user[email]', "", placeholder: "E-post"
+          = password_field_tag 'user[password]', "", placeholder: "Passord"
+          = password_field_tag 'user[password_confirmation]', "", placeholder: "Bekreft passord"
+          %button.btn-flat.white-text.green.lighten-2 Logg inn
+
       #reset_confirmation_modal.modal
         .modal-content
           %h3 Resend confirmation instructions
@@ -81,8 +60,6 @@
             .modal-footer
               %a.modal-close.red-text.btn-flat{:href => "#!"} Avbryt
               = f.submit "Send bekreftelse på nytt", class: "blue-text btn-flat"
-
-
 
 :javascript
     $(document).ready(function(){
