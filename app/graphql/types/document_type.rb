@@ -6,6 +6,7 @@ module Types
     field :file_path, String, null: false
     field :created_at, String, null: false
     field :updated_at, String, null: false
+    field :recipient, [RecipientType], null: false
     field :file, Types::FileType, null: false
 
 

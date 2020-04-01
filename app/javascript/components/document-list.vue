@@ -173,18 +173,10 @@
                                             :class="'status-' + document.status"
                                     >
                                         <v-divider></v-divider>
-                                        <ApolloQuery :query="require('../graphql/RecipientForDocument.gql')"
-                                        >
-                                            <template v-slot="{ result: { loading, error, data } }">
-                                                <!-- Result -->
-                                              <div v-if="data" v-bind="recipients = data.recipientForDocument">
-                                                  <Recipient
-                                                    :recipient="determineRecipient(recipients, document)"
-                                                    :document="document"
-                                                  />
-                                              </div>
-                                            </template>
-                                        </ApolloQuery>
+                                        <Recipient
+                                            :recipient="document.recipient"
+                                            :document="document"
+                                        />
                                         <v-divider></v-divider>
                                     </div>
                                 </span>
