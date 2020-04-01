@@ -1,7 +1,7 @@
 <template>
  <div
     v-if="recipient"
-    class="mx-auto grey lighten-4"
+    class="mx-auto lighten-4"
  >
     <div
             v-for="recObj in recipient"

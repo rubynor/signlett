@@ -2,13 +2,17 @@ import Vue from 'vue'
 import VueRouter from "vue-router";
 
 import DocumentView from '../components/document_view'
-import FileUpload from '../components/file_upload_dialog'
 import EditUser from '../components/edit_user'
+import Overview from '../components/overview'
 
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
     routes: [
+        {
+          path: '/oversikt',
+          component: Overview
+        },
         {
             path: '/rediger-profil',
             component: EditUser
@@ -16,10 +20,6 @@ export const router = new VueRouter({
             path: '/',
             component: DocumentView
         },
-        {
-            path: '/ny-signering',
-            component: FileUpload
-        }
 
     ]
 })

@@ -44,7 +44,7 @@
                             cols="12"
                             sm="10"
                             offset-sm="1"
-                            class="elevation-3 bc-color mt-5 pa-4 pb-12"
+                            class="elevation-3 mt-5 pa-4 pb-12"
                     >
                         <p class="display-2">{{userLoggedIn.firstName}}</p>
                             <v-row>

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="bc-color">
+  <v-app>
     <ApolloQuery
             :query="require('../graphql/LoggedInUser.gql')"
     >
@@ -23,6 +23,8 @@
 import DocumentList from './document-list'
 import Navigation from './navigation'
 
+import DocumentQuery from '../graphql/DocumentForUser.gql'
+
 export default {
   data(){
     return {
@@ -32,6 +34,11 @@ export default {
     DocumentList,
     Navigation
   },
+  apollo: {
+    documentForUser: {
+      query: DocumentQuery
+    }
+  }
 }
 </script>
 

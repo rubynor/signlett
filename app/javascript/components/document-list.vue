@@ -67,7 +67,7 @@
                     </template>
                     <template v-slot:default="{ items, expand, isExpanded }">
                         <div
-                            class="elevation-3 pa-0 mt-5 bc-color"
+                            class="elevation-3 pa-0 mt-5"
                         >
                             <span
                                     v-for="document in items"
@@ -79,7 +79,7 @@
                                                 class="font-weight-light text-truncate"
                                         >
                                             <v-row class="ma-0 pa-0" :class="'status-' + document.status">
-                                                <!-- Navn -->
+
                                                 <v-col
                                                 >
                                                     <span class="text--secondary font-weight-thin text-truncate">Dokument</span>
@@ -266,7 +266,7 @@
 <script>
     import Recipient from './recipient'
     import FileUploadDialog from './file_upload_dialog'
-    import DOCUMENT_FOR_USER from "../graphql/DocumentForUser.gql"
+    import { LOCAL_DOCUMENT } from "../constants/graphql";
 
     // Methods:
     import { capitalize } from "../network/vue-rails";
@@ -352,7 +352,7 @@
         },
         apollo: {
             documentForUser: {
-                query: DOCUMENT_FOR_USER
+                query: LOCAL_DOCUMENT
             }
         }
     }

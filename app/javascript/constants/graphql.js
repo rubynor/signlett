@@ -1,74 +1,61 @@
 import gql from "graphql-tag/src";
 
-export const ALL_DOCUMENTS_QUERY = gql`
-  query getDocuments{
-    findAllDocuments {
-        id
-        createdAt
-        updatedAt
-        user{
-            firstName
-            lastName
-            email
-        }
-        status
-        filePath
-    }
-  }
-`;
+/***
+ *
+ * Local queries for application
+ *
+ * */
 
-// Query to get all documents for current user
-export const DOCUMENT_FOR_USER = gql`
-  query documents{
-    documentForUser {
+export const LOCAL_USER = gql`
+    {
+    userLoggedIn @client{
         id
-        createdAt
-        updatedAt
-        user{
-            firstName
-            lastName
-            email
-        }
-        status
-        filePath
-        file{
-            filename
-            contentType
-            byteSize
+        email
+        firstName
+        lastName
         }
     }
-  }
-`;
+`
 
-export const CURRENT_USER = gql`
-    query getUser{
-        userLoggedIn {
+export const LOCAL_EVENT = gql`
+    {
+    userLoggedIn @client{
+        id
+        email
+        firstName
+        lastName
+        }
+    }
+`
+
+export const LOCAL_DOCUMENT = gql`
+    {
+        documentForUser @client{
             id
-        }
-    }
-`;
-
-export const UPLOAD_DOCUMENT = gql`
-    mutation uploadDocument($email: String!, $status: Int!, $filePath: String!){
-        createDocument(input: {
-            email: $email
-            status: $status
-            filePath: $filePath
-    })  {
-            document{
-                id
-                filePath
-                status
+            createdAt
+            updatedAt
+            user{
+                firstName
+                lastName
+                email
+            }
+            status
+            filePath
+            file{
+                filename
+                contentType
+                byteSize
             }
             recipient{
-                id
-                email
-                signed
+               id
+               email
+               createdAt
+               updatedAt
+               signed
             }
-            errors
         }
-    }   
-`;
+    }
+`
 
 export const RECIPIENT_FOR_DOCUMENT = gql`
     query getRecipients {

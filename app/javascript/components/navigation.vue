@@ -59,13 +59,15 @@
                     color="primary"
                     active-class="selected-item"
                     grow
-                    class="justify-start"
+                    class="justify-start elevation-3"
                     :absolute="$vuetify.breakpoint.mdAndDown"
 
             >
                 <v-btn v-for="(item, k) in items" :key="k" :to="item.route" class="item">
                     <span>{{item.title}}</span>
                 </v-btn>
+                <v-spacer></v-spacer>
+                <span v-if="$vuetify.breakpoint.mdAndUp" class="align-self-md-center float-right mr-12"><v-icon left color="primary">mdi-paper-roll-outline</v-icon>{{user.firstName}} {{user.lastName}}</span>
             </v-bottom-navigation>
         </v-col>
     </v-row>
