@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-dialog v-model="show" max-width="600px">
+        <v-dialog v-model="show" max-width="800px">
             <v-card outlined tile class="px-8">
                 <AlertWindow v-if="alertObject.show" :alert-content="alertObject"/>
 
@@ -9,7 +9,7 @@
                     <p class="display-1 font-weight-light d-block">Legg til signering</p>
 
                     <v-btn
-                        color="green lighten-2"
+                        color="primary"
                         x-large
                         block
                         class="px-12"
@@ -67,7 +67,7 @@
                                 depressed
                                 dark
                                 x-large
-                                color="green lighten-2"
+                                color="primary"
                                 @click="addEmailField()"
                         >
                             <v-icon left>mdi-plus-circle-outline</v-icon>

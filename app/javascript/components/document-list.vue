@@ -2,19 +2,6 @@
     <span>
         <v-row>
             <v-col
-                cols="10"
-                offset-sm="1"
-                class="mt-12 pl-0"
-            >
-                <span
-                    class="display-1 font-weight-light"
-                >
-                    Mine dokumenter
-                </span>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col
                 cols="12"
                 sm="10"
                 offset-sm="1"
@@ -33,7 +20,6 @@
                     <template v-slot:header>
                                  <span
                                          class="mb-1 pa"
-                                         flat
                                  >
                                     <v-row>
                                         <v-col
@@ -72,7 +58,7 @@
                                         </v-col>
                                         <v-col
                                         >
-                                            <v-btn large class="float-right green lighten-2 tile" dark @click="fileUploadDialog = true"><v-icon left>mdi-plus</v-icon>Ny signering</v-btn>
+                                            <v-btn large class="float-right primary tile" dark @click="fileUploadDialog = true"><v-icon left>mdi-plus</v-icon>Ny signering</v-btn>
                                         </v-col>
 
                                     </v-row>
@@ -139,7 +125,7 @@
                                                             <v-btn
                                                                     v-on="on"
                                                                     icon
-                                                                    color="green lighten-2"
+                                                                    color="primary"
                                                                     :href="document.filePath"
                                                             >
                                                                 <v-icon>mdi-download</v-icon>
@@ -154,7 +140,7 @@
                                                             <v-btn
                                                                     v-on="on"
                                                                     icon
-                                                                    color="blue lighten-2">
+                                                                    color="secondary">
                                                                 <v-icon>
                                                                     mdi-pen
                                                                 </v-icon>
@@ -169,7 +155,7 @@
                                                             <v-btn
                                                                     v-on="on"
                                                                     icon
-                                                                    color="red lighten-2"
+                                                                    color="error"
                                                                     @click="deleteDialog = true, selectedDocumentId = document.id">
                                                                 <v-icon>mdi-trash-can</v-icon>
                                                             </v-btn>
@@ -239,12 +225,12 @@
             >
                 <template v-slot="{ mutate, error}">
                     <v-card>
-                        <v-card-title>Er du sikker?<v-icon color="red lighten-2">mdi-alert-circle-outline</v-icon></v-card-title>
+                        <v-card-title>Er du sikker?<v-icon color="error">mdi-alert-circle-outline</v-icon></v-card-title>
                         <v-card-text>Sletter du dokumentet nå kan det ikke gjenopprettes.</v-card-text>
                         <v-card-text v-if="error">Det skjedde en feil: {{error}}</v-card-text>
                         <v-card-actions>
-                            <v-btn text @click="deleteDialog = false" color="green lighten-2">Avbryt</v-btn>
-                            <v-btn text @click="mutate" color="red lighten-2">Slett dokument</v-btn>
+                            <v-btn text @click="deleteDialog = false" color="primary">Avbryt</v-btn>
+                            <v-btn text @click="mutate" color="error">Slett dokument</v-btn>
                         </v-card-actions>
                     </v-card>
                 </template>
