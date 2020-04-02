@@ -9,7 +9,7 @@ const opts = {
         root: true,
         themes: {
             dark: {
-                primary: '#81C784',
+                primary: '#AB47BC',
                 secondary: '#64B5F6',
                 accent: '#607d8b',
                 error: '#E57373',
@@ -19,10 +19,10 @@ const opts = {
                 anchor: '#ff0080',
                 background: 'rgba(0,0,0,0.96)',
                 sidemenu: '#3B3F53',
-                whiteTransparent: 'rgba(255, 255, 255, 0.7)'
+                whiteTransparent: '#fff'
             },
             light: {
-                primary: '#ff9800',
+                primary: '#81C784',
                 secondary: '#64B5F6',
                 accent: '#607d8b',
                 error: '#E57373',
@@ -30,7 +30,7 @@ const opts = {
                 info: '#03a9f4',
                 success: '#7dde76',
                 anchor: '#ff0080',
-                background: '#3bfff0',
+                background: '#FAFAFA',
                 sidemenu: '#3B3F53'
             }
         }

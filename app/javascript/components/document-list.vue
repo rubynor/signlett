@@ -66,8 +66,9 @@
 
                     </template>
                     <template v-slot:default="{ items, expand, isExpanded }">
-                        <div
-                            class="elevation-3 pa-0 mt-5"
+                        <v-card
+                         tile
+                         class="mt-5 mb-5"
                         >
                             <span
                                     v-for="document in items"
@@ -174,13 +175,14 @@
                                     >
                                         <v-divider></v-divider>
                                         <Recipient
-                                            :recipient="document.recipient"
-                                            :document="document"
+                                                :recipient="document.recipient"
+                                                :document="document"
                                         />
                                         <v-divider></v-divider>
                                     </div>
-                                </span>
-                        </div>
+                            </span>
+                        </v-card>
+
                     </template>
                     <template v-slot:footer>
                         <v-row>

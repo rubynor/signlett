@@ -39,15 +39,24 @@
                         </v-row>
                     </v-col>
                 </v-row>
+
                 <v-row>
                     <v-col
                             cols="12"
                             sm="10"
                             offset-sm="1"
-                            class="elevation-3 mt-5 pa-4 pb-12"
+                            class="elevation-3 pa-0"
                     >
-                        <p class="display-2">{{userLoggedIn.firstName}}</p>
-                            <v-row>
+                        <v-card class="" tile>
+                            <v-card-title><p class="display-2">{{userLoggedIn.firstName}}</p></v-card-title>
+                            <v-card-text>
+                                <v-switch
+                                        v-model="$vuetify.theme.dark"
+                                        hide-details
+                                        inset
+                                        label="Theme Dark"
+                                ></v-switch>
+                                <v-row>
                                 <v-col>
                                     <v-text-field
                                             outlined
@@ -111,6 +120,9 @@
                                     @click:append="showPasswordTwo = !showPasswordTwo"
                                     class="mb-4"
                             ></v-text-field>
+                            </v-card-text>
+
+                        </v-card>
                     </v-col>
                 </v-row>
             </v-form>
