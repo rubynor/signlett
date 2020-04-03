@@ -273,6 +273,7 @@
     // Methods:
     import { capitalize } from "../network/vue-rails";
     import { makeRecipientArray, determineStatus } from "../functions";
+    import DOCUMENT_FOR_USER from '../graphql/DocumentForUser.gql'
 
     export default {
         components: {

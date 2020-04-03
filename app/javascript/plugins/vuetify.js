@@ -16,7 +16,7 @@ const opts = {
                 warning: '#ff9800',
                 info: '#03a9f4',
                 success: '#7dde76',
-                anchor: '#ff0080',
+                anchor: '#ffffff',
                 background: 'rgba(0,0,0,0.96)',
                 sidemenu: '#3B3F53',
                 whiteTransparent: '#fff'
@@ -29,8 +29,8 @@ const opts = {
                 warning: '#ff9800',
                 info: '#03a9f4',
                 success: '#7dde76',
-                anchor: '#ff0080',
-                background: '#FAFAFA',
+                anchor: '#000000',
+                background: '#F6F8F8',
                 sidemenu: '#3B3F53'
             }
         }
