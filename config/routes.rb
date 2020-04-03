@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :documents
-  root 'documents#index'
+  get '/about', to: 'home#about'
+  root 'home#landing'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
