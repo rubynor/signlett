@@ -1,4 +1,4 @@
 class ApplicationMailbox < ActionMailbox::Base
   # routing /something/i => :somewhere
-  routing SignMailbox::MATCHER => :sign
+  routing /signature-(.+)@signlett.com/i => :sign
 end
