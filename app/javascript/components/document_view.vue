@@ -7,6 +7,7 @@
                     lg="10"
                     sm="12"
                     offset-lg="1"
+                    offset-sm="1"
                     class="pl-0"
             >
                 <a @click="active = !active" :class="active ? 'secondary--text' : ''" class="font-weight-medium">Mine Signeringer</a>

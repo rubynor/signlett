@@ -60,7 +60,7 @@
                     active-class="selected-item"
                     grow
                     class="justify-start elevation-3"
-                    :absolute="$vuetify.breakpoint.mdAndDown"
+                    :fixed="$vuetify.breakpoint.mdAndDown"
 
             >
                 <v-btn v-for="(item, k) in items" :key="k" :to="item.route" class="item">
