@@ -28,6 +28,7 @@ gem 'apollo_upload_server', '2.0.1'
 gem 'graphql'        # Graphql for using vue
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'aws-sdk-s3', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
