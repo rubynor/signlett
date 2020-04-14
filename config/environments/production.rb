@@ -114,5 +114,14 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'https://signlett.herokuapp.com/'}
+  config.action_mailer.smtp_settings = {
+      :user_name => ENV['SENDGRID_PASSWORD'],
+      :password => ENV['SENDGRID_USERNAME'],
+      :domain => 'https://signlett.herokuapp.com/',
+      :address => 'smtp.sendgrid.net',
+      :port => 465,
+      :authentication => :plain,
+      :enable_starttls_auto => true
+  }
 
 end
