@@ -13,5 +13,7 @@ class Document < ApplicationRecord
 
   def file_path
     file.service_url
+  rescue URI::InvalidURIError
+    super
   end
 end
