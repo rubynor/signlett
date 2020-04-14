@@ -39,12 +39,12 @@ class DocumentsController < ApplicationController
 
   # Method for only sending mail to the first recipient that is not sent yet
   def send_mail(document)
-    recipient = Recipient.where(document: document, sent: false).first
+    recipient = Recipient.find_first(document)
     if recipient.present?
       DocumentMailer.with(user: document.user,
                           email: recipient.email,
                           document: document).signature_email.deliver_later
-      recipient.update(sent: true)
+      recipient.set_sent_true
       DocumentEvent.create!(document: document, message: "E-post sendt til #{recipient.email} ")
     end
   end
