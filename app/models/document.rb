@@ -11,4 +11,7 @@ class Document < ApplicationRecord
 
   has_one_attached :file, dependent: :purge_later
 
+  def file_path
+    file.service_url
+  end
 end
