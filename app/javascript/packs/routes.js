@@ -1,25 +1,25 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
 
-import DocumentList from '../components/document-list'
-import FileUpload from '../components/file_upload'
-import Signup from '../components/edit_user'
+import DocumentView from '../components/document_view'
+import EditUser from '../components/edit_user'
+import Overview from '../components/overview'
 
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
     routes: [
         {
-            path: '/signup',
-            component: Signup
-        }, {
-            path: '/',
-            component: DocumentList
+          path: '/oversikt',
+          component: Overview
         },
         {
-            path: '/ny-signering',
-            component: FileUpload
-        }
+            path: '/rediger-profil',
+            component: EditUser
+        }, {
+            path: '/',
+            component: DocumentView
+        },
 
     ]
 })

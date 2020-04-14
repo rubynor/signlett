@@ -1,7 +1,7 @@
 <template>
  <div
     v-if="recipient"
-    class="mx-auto grey lighten-4"
+    class="mx-auto lighten-4"
  >
     <div
             v-for="recObj in recipient"
@@ -15,7 +15,7 @@
                 <v-col>
                     <v-chip
                             outlined
-                            color="red lighten-2"
+                            color="error"
                             dark
                             v-if="!recObj.signed"
                     >
@@ -24,7 +24,7 @@
                     </v-chip>
                     <v-chip
                             outlined
-                            color="green lighten-2"
+                            color="primary"
                             v-if="recObj.signed"
                             dark
                     >
@@ -44,7 +44,7 @@
                             <v-btn
                                     v-on="on"
                                     icon
-                                    color="green lighten-2"
+                                    color="primary"
                             >
                                 <v-icon>mdi-reminder</v-icon>
                             </v-btn>

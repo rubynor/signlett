@@ -1,0 +1,19 @@
+query getRecipients {
+    userAsRecipient{
+        id
+        email
+        createdAt
+        updatedAt
+        signed
+        document{
+            id
+            filePath
+            user{
+                email
+            }
+            file{
+                filename
+            }
+        }
+    }
+}

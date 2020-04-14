@@ -1,59 +1,51 @@
 <template>
-    <v-container>
-        <AlertWindow :alert-content="alertObject"/>
-        <v-card outlined tile class="px-8">
-            <v-card
-                    outlined
-                    class="mt-4"
-                    color="blue-grey lighten-5"
-            >
-                <div class="border upload-height ma-1 pa-2">
-                    <form ref="fileform">
-                        <p class="text-center">Dra filene inn for opplasting</p>
-                        <h1 class="text-center display-4"><v-icon x-large>mdi-upload</v-icon></h1>
-                    </form>
-                </div>
-            </v-card>
+    <v-row justify="center">
+        <v-dialog v-model="show" max-width="800px">
+            <v-card outlined tile class="px-8">
+                <AlertWindow v-if="alertObject.show" :alert-content="alertObject"/>
 
-            <!-- Button for adding files without drag and drop -->
-            <v-card-text class="mt-n12 text-center">
-                <v-btn
-                    color="teal"
-                    x-large
-                    class="px-12"
-                    @click="openInput"
-                    dark
+                <!-- Button for adding files without drag and drop -->
+                <v-card-title class="ml-0">
+                    <p class="display-1 font-weight-light d-block">Legg til signering</p>
+
+                    <v-btn
+                        color="primary"
+                        x-large
+                        block
+                        class="px-12"
+                        @click="openInput"
+                        dark
                 >
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     <span>Legg til fil</span>
-                </v-btn>
+                </v-btn></v-card-title>
+
                 <input type="file" ref="file_input" style="display:none;" @change="onFileChange">
-            </v-card-text>
 
-            <!-- Files for upload -->
-            <v-card
-                v-for="(file, i) in files"
-                :key="i"
-                color="blue-grey lighten-5"
-                flat
-                class="ma-4"
-                hover
-            >
-                <v-list-item>
-                    <v-icon x-large color="teal" class="ma-2">mdi-file</v-icon>
-                    {{ file.name }} {{ file.size/1000 }} kb
-                    <v-row
-                        align="center"
-                        justify="end"
-                    >
-                        <v-icon @click="close(i)" class="ma-2">mdi-trash-can</v-icon>
-                    </v-row>
-                </v-list-item>
-            </v-card>
+                <!-- Files for upload -->
+                <v-card
+                        v-for="(file, i) in files"
+                        :key="i"
+                        color="blue-grey lighten-5"
+                        flat
+                        class="ma-4"
+                        hover
+                >
+                    <v-list-item>
+                        <v-icon x-large color="teal" class="ma-2">mdi-file</v-icon>
+                        {{ file.name }} {{ file.size/1000 }} kb
+                        <v-row
+                                align="center"
+                                justify="end"
+                        >
+                            <v-icon @click="close(i)" class="ma-2">mdi-trash-can</v-icon>
+                        </v-row>
+                    </v-list-item>
+                </v-card>
 
-            <v-divider class="ma-4"></v-divider>
-            <v-form v-model="valid" ref="form">
-                <v-card-text>
+                <v-divider class="ma-4"></v-divider>
+                <v-form v-model="valid" ref="form">
+                    <v-card-text>
 
                         <div v-for="(recipient, k) in emailRecipient" :key="k">
                             <v-text-field
@@ -75,7 +67,7 @@
                                 depressed
                                 dark
                                 x-large
-                                color="teal"
+                                color="primary"
                                 @click="addEmailField()"
                         >
                             <v-icon left>mdi-plus-circle-outline</v-icon>
@@ -83,13 +75,15 @@
                         </v-btn>
 
 
-                </v-card-text>
-                <v-card-actions>
-                    <v-btn @click="uploadFileAxios" text color="primary">Send til signering</v-btn>
-                </v-card-actions>
-            </v-form>
-        </v-card>
-    </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn @click="uploadFileAxios" text color="primary">Send til signering</v-btn>
+                        <v-btn color="blue darken-1" text @click="show = false">Avbryt</v-btn>
+                    </v-card-actions>
+                </v-form>
+            </v-card>
+        </v-dialog>
+    </v-row>
 </template>
 
 <script>
@@ -97,9 +91,12 @@
     import AlertWindow from './alert_window'
 
     export default {
+        components: {
+            AlertWindow
+        },
+        props: ['dialog'],
         data() {
             return {
-                dragAndDropCapable: false,
                 files: [],
                 emailRecipient: [
                     {
@@ -135,29 +132,6 @@
             },
             removeEmailField(index){
                 this.emailRecipient.splice(index, 1)
-            },
-            determineDragAndDropCapable() {
-                let div = document.createElement('div')
-                return (('draggable' in div)
-                    || ('ondragstart' in div && 'ondrop' in div) )
-                    && 'FormData' in window
-                    && 'FileReader' in window;
-            },
-            mounted() {
-                this.dragAndDropCapable = this.determineDragAndDropCapable();
-                if(this.dragAndDropCapable)
-                    ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach( function (evt) {
-                        this.$refs.fileform.addEventListener(evt, function(e){
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }.bind(this), false)
-                    }.bind(this));
-
-                this.$refs.fileform.addEventListener('drop', function(e){
-                    for( let i = 0; i < e.dataTransfer.files.length; i++)
-                        this.files.push(e.dataTransfer.files[i])
-                }.bind(this))
-
             },
             // File upload methods
             openInput(){
@@ -195,8 +169,8 @@
                             this.files = []
                             this.emailRecipient = [{email: ''}]
                             this.makeAlert("Dokument lastet opp til signering", "success")
-
                             this.$refs.form.resetValidation()
+                            this.show = false
                         }).catch(error => {
                             this.makeAlert("Dokument kunne ikke lastest opp." + error, "error")
 
@@ -213,16 +187,23 @@
                     type: type,
                     message: message
                 }
-
                 setTimeout(() => {
                     this.alertObject.show = false
                 }, 3000)
 
             }
         },
-        components: {
-            AlertWindow
+        computed: {
+            show: {
+                get() {
+                    return this.dialog
+                },
+                set(value) {
+                    this.$emit('update:dialog', value)
+                }
+            }
         }
+
     }
 </script>
 

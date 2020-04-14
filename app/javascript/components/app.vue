@@ -1,5 +1,5 @@
 <template>
-  <v-app class="bc-color">
+  <v-app :style="{background: $vuetify.theme.themes[isDark].background}">
     <ApolloQuery
             :query="require('../graphql/LoggedInUser.gql')"
     >
@@ -23,6 +23,8 @@
 import DocumentList from './document-list'
 import Navigation from './navigation'
 
+import DocumentQuery from '../graphql/DocumentForUser.gql'
+
 export default {
   data(){
     return {
@@ -32,12 +34,21 @@ export default {
     DocumentList,
     Navigation
   },
+  apollo: {
+    documentForUser: {
+      query: DocumentQuery
+    }
+  },
+  computed: {
+    isDark(){ return (this.$vuetify.theme.dark) ? 'dark' : 'light'}
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
   .bc-color {
-    background-color: #F6F7FD;
+    background-color:#FAFAFA;
   }
 
 </style>

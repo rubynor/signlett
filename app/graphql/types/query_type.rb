@@ -11,8 +11,8 @@ module Types
       description "Find documents belonging to current user if there is any"
     end
 
-    field :recipient_for_document, [RecipientType], null: true do
-      description "Find recipients for given document"
+    field :user_as_recipient, [RecipientType], null: true do
+      description "Return all documents sent to current_user"
     end
 
     # Event queries
@@ -57,8 +57,8 @@ module Types
       current_user.documents
     end
 
-    def recipient_for_document
-      Recipient.where(document: current_user.documents)
+    def user_as_recipient
+      Recipient.where(email: current_user.email)
     end
 
     def event_for_document(document_id:)
