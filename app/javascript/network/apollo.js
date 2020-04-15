@@ -20,7 +20,7 @@ const authLink = setContext((_, { headers }) => {
 
 
 const options = {
-    uri: 'http://localhost:3000/graphql',
+    uri: '/graphql',
     credentials: 'include'
 }
 
