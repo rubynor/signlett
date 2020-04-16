@@ -31,4 +31,11 @@ class DocumentMailer < ApplicationMailer
     mail(to: @email,
          subject: 'Signeringer gjennomført')
   end
+
+  def bounce_mail
+    @email = params[:email]
+
+    mail(to: @email,
+         subject: 'Vi kunne ikke behandle din epost')
+  end
 end

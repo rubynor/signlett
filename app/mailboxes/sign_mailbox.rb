@@ -1,5 +1,5 @@
 class SignMailbox < ApplicationMailbox
-  MATCHER = /signature-(.+)@signlett.com/i
+  MATCHER = /signature-(.+)@signlett.no/i
 
   before_processing :email_token
 
