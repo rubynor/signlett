@@ -2,8 +2,8 @@
     <v-row>
         <v-col
             lg="10"
-            sm="12"
-            offset-lg="1"
+            sm="10"
+            offset-sm="1"
             class="pa-0 mt-5"
         >
             <v-card tile>

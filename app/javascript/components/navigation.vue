@@ -67,6 +67,7 @@
                     <span>{{item.title}}</span>
                 </v-btn>
                 <v-spacer></v-spacer>
+                <v-btn v-if="$vuetify.breakpoint.mdAndDown" @click="logout">Logg ut</v-btn>
                 <span v-if="$vuetify.breakpoint.mdAndUp" class="align-self-md-center float-right mr-12"><v-icon left color="primary">mdi-paper-roll-outline</v-icon>{{user.firstName}} {{user.lastName}}</span>
             </v-bottom-navigation>
         </v-col>
@@ -83,7 +84,6 @@
                 items: [
                     {title: 'Oversikt', icon: "mdi-home", route: '/oversikt'},
                     {title: 'Dokumenter', icon: 'mdi-file-document', route: '/'},
-                    {title: 'Arkiv', icon: "mdi-archive", route: '/arkiv'},
                     {title: 'Profil', icon: 'mdi-account', route: '/rediger-profil'},
                 ],
                 tab: null,

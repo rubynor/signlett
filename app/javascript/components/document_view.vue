@@ -5,7 +5,7 @@
             <!-- "Buttons" for changing view from document-list to recipients -->
             <v-col
                     lg="10"
-                    sm="12"
+                    sm="10"
                     offset-lg="1"
                     offset-sm="1"
                     class="pl-0"
