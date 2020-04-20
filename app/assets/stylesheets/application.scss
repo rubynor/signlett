@@ -13,10 +13,40 @@
  *= require_tree .
  *= require_self
  */
+/// MY CUSTOM COLOR VARIABLES
+$tab-color: #81c784;
+$warning: #FFA726;
+$warning-border: #F57C00;
+$link-color:  rgb(21, 13, 107);
+$link-hover: rgb(188, 16, 80);
 
 body, html {
   height: 100%;
 }
+
+.container-custom {
+  margin-left: 8.33333%;
+  margin-right: 8.33333%;
+}
+
+.container-box {
+  border-radius: 5px;
+  margin-left: 8.33333%;
+  margin-right: 8.33333%;
+  margin-top: 3%;
+  padding: 3%;
+  background-image: linear-gradient( 180deg,  rgb(21, 13, 107) 1.1%, rgb(188, 16, 80) 130.5% );
+  clip-path: polygon( 0 0, 0 100%, 100% 80%, 100% 0);
+  .row {
+    margin-bottom: 0px;
+  }
+  img {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+  }
+}
+
 .height-100 {
   height: 100%;
   border: none;
@@ -40,10 +70,9 @@ body, html {
   height: 25%;
 }
 
-/// MY CUSTOM COLOR VARIABLES
-$tab-color: #81c784;
-$warning: #FFA726;
-$warning-border: #F57C00;
+.width-100 {
+  width: 100%;
+}
 
 // RESTYLING THE TABS USING THE CUSTOM VARIABLE
 .tabs {
@@ -77,15 +106,92 @@ $warning-border: #F57C00;
   padding: 10px;
 }
 
+.mt-4 {
+  margin-top: 10px;
+}
+
 .dark {
   color: white;
 }
 
 .v-spacer{
-  margin: 0px 5px 0 5px;
+  margin: 5px 5px 0 5px;
 }
 
-.v-spacer{
-  margin-left: 5px;
-  margin-right: 5px;
+.valign-center{
+  vertical-align: middle;
 }
+
+.bottom-align {
+  bottom: 0;
+}
+
+/***********/
+/*FONTS*/
+
+a, h1, h2, h3, h4, h5, p {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+p {
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+}
+a {
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+}
+
+h1 {
+  font-weight: 700 !important;
+}
+
+
+/***********************/
+/* NAVIGATION */
+
+.topnav {
+  z-index: 99999;
+  overflow: hidden;
+  a {
+    float: right;
+    display: block;
+    color: $link-color;
+    text-align: center;
+    padding: 14px 12px;
+    font-size: 17px;
+    cursor: pointer;
+  }
+  a:hover {
+    color: $link-hover;
+  }
+  .logo {
+    float: left !important;
+  }
+}
+
+
+/*******************/
+/* BUTTON */
+.custom-btn {
+  margin: 0 auto;
+  padding: 12px;
+  border-radius: 40px;
+  letter-spacing: 1px;
+  color: #fff;
+  font-size: 18px;
+  background-color: #1ECD97;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+  &:hover {
+    background-color: #17a77a;
+    color: #fff;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+

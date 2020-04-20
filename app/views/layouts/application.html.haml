@@ -17,24 +17,37 @@
     %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"}
     %link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
     %link{:href => "", :rel => "stylesheet"}
+    %link{:href => "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap", :rel => "stylesheet"}/
   %body
-    %nav
-      .nav-wrapper.green.lighten-2
-        %a.brand-logo.left.v-spacer{href: "/"}
-          SiGNLETT
-        %a.sidenav-trigger.right{"data-target" => "expand", href: "#"}
-          %i.material-icons menu
-        %ul.hide-on-med-and-down
-          %li.right
-            = link_to "Logg inn", new_user_session_url, class: "active"
-          %li.right
-            = link_to "Om oss", '/about', class: "active"
+    - unless devise_controller?
+      .container-custom
+        .topnav
+          %a{href: "/", class: 'logo'}
+            SIGNLETT
+          = link_to "Logg inn", new_user_session_url, class:'hide-on-med-and-down'
+          = link_to "Om oss", '/about', class:'hide-on-med-and-down'
+          %a.sidenav-trigger.hide-on-large-only{"data-target" => "expand", href: "#"}
+            %i.material-icons menu
+      -#.navbar-fixed
+      -#  %nav.transparent.z-depth-0
+      -#    .nav-wrapper
+      -#      %a.brand-logo{href: "/"}
+      -#        = image_tag("logo.svg", size: '40x40',alt: 'SIGNLETT', class: 'valign-center')
+      -#        %span.valign-center
+      -#          SIGNLETT
+      -#      %a.sidenav-trigger.right{"data-target" => "expand", href: "#"}
+      -#        %i.material-icons menu
+      -#      %ul.hide-on-med-and-down
+      -#        %li.right
+      -#          = link_to "Logg inn", new_user_session_url, class: "active btn btn-rounded"
+      -#        %li.right
+      -#          = link_to "Om oss", '/about', class: "active"
 
-    %ul.sidenav#expand.left
-      %li
-        = link_to "Logg inn", new_user_session_url, class: "active"
-      %li
-        = link_to "Om oss", '/about', class: "active"
+      %ul.sidenav#expand.left
+        %li
+          = link_to "Logg inn", new_user_session_url, class: "active"
+        %li
+          = link_to "Om oss", '/about', class: "active"
     = yield
 
 :javascript

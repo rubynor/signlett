@@ -1,3 +1,32 @@
-.container
-  %h1
-    Velkommen til SiGNLETT
+.container-box
+  .row.valign-wrapper
+    .col.s12.l4
+      .carousel.carousel-slider.height-100
+        .carousel-fixed-item
+          = link_to "Opprett en bruker", new_user_session_url, class: 'custom-btn'
+
+        .carousel-item.white-text
+          %h1
+            Hva gjør vi?
+          %p
+            %strong Signlett
+            tetter enten-eller gapet mellom “enten dyr online signering eller gjør-det-sjæl epost” og
+            %strong spiller på lag
+            med “epost + print/scan” prosessen
+        .carousel-item.white-text{:href => "#two!"}
+          %h1
+            Prøv oss!
+          %p
+            Vårt produkt er for øyeblikket helt gratis! Du taper ingenting ved å prøve oss i dag.
+    .col.l8.hide-on-med-and-down
+      = image_tag("undraw_setup_wizard_r6mr_white.svg", alt: 'SIGNLETT', class: 'valign-center', style: 'float:right;')
+
+
+:javascript
+   $(document).ready(function() {
+    $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true
+    });
+   })
+

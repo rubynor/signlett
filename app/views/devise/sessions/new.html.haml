@@ -3,10 +3,11 @@
   .col.s1.l4.height-100.valign-wrapper.green.lighten-2.hide-on-med-and-down
     .container
       .center-align
-        = image_tag("icons.png", size: "400x400", :alt => "Image")
+        %a{href: "/"}
+          = image_tag("icons.png", size: "400x400", :alt => "Image", href: "/")
   / Column for right side of login
   .col.s12.m12.l12.xl8.height-100
-    .height-25.hide-on-lg-and-down
+    .height-25.hide-on-med-and-down
     .col.s12.l5.offset-l3
       - if alert
         .alert-box.pa-4.dark
@@ -33,7 +34,7 @@
         =form_tag session_path(:user) do
           = text_field_tag 'user[email]', "", placeholder: "E-post"
           = password_field_tag 'user[password]', "", placeholder: "Passord"
-          %button.btn-flat.white-text.green.lighten-2 Logg inn
+          %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Logg inn
           = link_to "Send ny bekreftelse",new_confirmation_path(resource_name), class: "v-spacer"
           = link_to "Glemt passordet?",new_password_path(resource_name)
 
@@ -45,7 +46,7 @@
           = text_field_tag 'user[email]', "", placeholder: "E-post"
           = password_field_tag 'user[password]', "", placeholder: "Passord"
           = password_field_tag 'user[password_confirmation]', "", placeholder: "Bekreft passord"
-          %button.btn-flat.white-text.green.lighten-2 Logg inn
+          %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Registrer deg
 
       #reset_confirmation_modal.modal
         .modal-content
