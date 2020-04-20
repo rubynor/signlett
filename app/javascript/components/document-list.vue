@@ -2,9 +2,8 @@
     <span>
         <v-row>
             <v-col
-                cols="12"
-                sm="10"
-                offset-sm="1"
+                cols="10"
+                offset="1"
                 class="pa-0 mt-5 pl-0"
             >
                <v-data-iterator
@@ -24,8 +23,9 @@
                                     <v-row>
                                         <v-col
                                                 lg="1"
+                                                v-if="$vuetify.breakpoint.mdAndUp"
                                         >
-                                            <template v-if="$vuetify.breakpoint.mdAndUp">
+                                            <template >
                                                 <v-select
                                                         flat
                                                         v-model="sortBy"
@@ -42,7 +42,7 @@
                                         </v-col>
                                         <v-col
                                                 lg="3"
-                                                sm="6"
+                                                cols="8"
                                         >
                                             <v-text-field
                                                     v-model="search"
@@ -57,8 +57,9 @@
                                             </v-text-field>
                                         </v-col>
                                         <v-col
+                                            lg="8"
                                         >
-                                            <v-btn large class="float-right primary tile" dark @click="fileUploadDialog = true"><v-icon left>mdi-plus</v-icon>Ny signering</v-btn>
+                                            <v-btn large class="float-right primary tile" dark @click="fileUploadDialog = true"><v-icon :left="$vuetify.breakpoint.mdAndUp">mdi-plus</v-icon><span v-if="$vuetify.breakpoint.mdAndUp">Ny signering</span></v-btn>
                                         </v-col>
 
                                     </v-row>
@@ -89,13 +90,14 @@
                                                 </v-col>
                                                 <!-- Størrelse -->
                                                 <v-col
+                                                    v-if="$vuetify.breakpoint.mdAndUp"
                                                 >
                                                     <span class="text--secondary font-weight-thin">Størrelse</span>
                                                     <br>
                                                     {{document.file.byteSize/1000}} kb
                                                 </v-col>
                                                 <v-col
-
+                                                    v-if="$vuetify.breakpoint.mdAndUp"
                                                 >
                                                     <span class="text--secondary font-weight-thin">Dato</span>
                                                     <br>
@@ -104,8 +106,8 @@
                                                 <!-- Status -->
                                                 <v-col
                                                 >
-                                                    <span class="text--secondary font-weight-thin">Status</span>
-                                                    <br>
+                                                    <span v-if="$vuetify.breakpoint.mdAndUp" class="text--secondary font-weight-thin">Status</span>
+                                                    <br v-if="$vuetify.breakpoint.mdAndUp">
                                                     <v-chip
                                                             outlined
                                                             :color="determineStatus(document.status).color"
@@ -117,8 +119,8 @@
                                                 </v-col>
                                                 <v-col
                                                 >
-                                                    <span class="text--secondary font-weight-thin">Handlinger</span>
-                                                    <br>
+                                                    <span v-if="$vuetify.breakpoint.mdAndUp" class="text--secondary font-weight-thin">Handlinger</span>
+                                                    <br v-if="$vuetify.breakpoint.mdAndUp">
                                                     <v-tooltip
                                                             bottom
                                                     >
@@ -133,21 +135,6 @@
                                                             </v-btn>
                                                         </template>
                                                         <span>Last ned dokument</span>
-                                                    </v-tooltip>
-                                                     <v-tooltip
-                                                             bottom
-                                                     >
-                                                        <template v-slot:activator="{ on }">
-                                                            <v-btn
-                                                                    v-on="on"
-                                                                    icon
-                                                                    color="secondary">
-                                                                <v-icon>
-                                                                    mdi-pen
-                                                                </v-icon>
-                                                            </v-btn>
-                                                        </template>
-                                                        <span>Rediger dokument</span>
                                                     </v-tooltip>
                                                      <v-tooltip
                                                              bottom
@@ -188,6 +175,7 @@
                         <v-row>
                                     <v-col
                                             sm="1"
+                                            cols="4"
                                     >
                                         <v-select
                                                 solo
@@ -199,7 +187,7 @@
                                     </v-col>
                                     <v-col
                                             lg="11">
-                                      <v-pagination v-model="page" :length="numberOfPages" class="mt-5 tile"></v-pagination>
+                                      <v-pagination v-model="page" :length="numberOfPages"></v-pagination>
                                     </v-col>
                                     </v-row>
                     </template>

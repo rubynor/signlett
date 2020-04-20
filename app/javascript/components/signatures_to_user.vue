@@ -1,9 +1,8 @@
 <template>
     <v-row>
         <v-col
-            lg="10"
-            sm="10"
-            offset-sm="1"
+            cols="10"
+            offset="1"
             class="pa-0 mt-5"
         >
             <v-card tile>

@@ -1,8 +1,8 @@
 <template>
     <v-row>
         <v-col
-            lg="10"
-            offset-lg="1"
+            cols="10"
+            offset="1"
         >
             <v-row>
                 <!-- Document out for signing -->
@@ -36,7 +36,7 @@
                     </v-card>
                 </v-col>
                 <!-- User as recipient -->
-                <v-col class="pr-0" lg="6" sm="12">
+                <v-col class="pr-0 mb-10" lg="6" sm="12">
                     <v-card tile>
                         <v-card-title class="font-weight-light justify-center">Signerte dokumenter</v-card-title>
                         <div class="text-center">
@@ -63,25 +63,6 @@
                         </div>
                         <v-card-text>
                         </v-card-text>
-                    </v-card>
-                </v-col>
-                <!-- Latest events -->
-                <v-col sm="12" class="px-0">
-                    <v-card>
-                        <div class="d-flex flex-no-wrap justify-space-between">
-                            <div>
-                                <v-card-title class="font-weight-light">Antall dokumenter siste måned: {{documentForUser.length}}</v-card-title>
-                                <v-card-title class="font-weight-light">Antall dokumenter siste måned: {{documentForUser.length}}</v-card-title>
-                            </div>
-                            <v-avatar
-                                    class="ma-3"
-                                    size="125"
-                                    tile
-                            >
-                                <v-img src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"></v-img>
-                            </v-avatar>
-                        </div>
-
                     </v-card>
                 </v-col>
 

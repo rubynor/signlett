@@ -4,10 +4,8 @@
         <v-row>
             <!-- "Buttons" for changing view from document-list to recipients -->
             <v-col
-                    lg="10"
-                    sm="10"
-                    offset-lg="1"
-                    offset-sm="1"
+                    cols="10"
+                    offset="1"
                     class="pl-0"
             >
                 <a @click="active = !active" :class="active ? 'secondary--text' : ''" class="font-weight-medium">Mine Signeringer</a>

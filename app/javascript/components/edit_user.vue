@@ -8,7 +8,7 @@
                 <v-row>
                     <v-col
                             cols="10"
-                            offset-sm="1"
+                            offset="1"
                             class="mt-12 pl-0"
                     >
                         <v-row
@@ -17,11 +17,12 @@
                             <v-col
                                 lg="6"
                             >
-                                <span><span :class="edit ? 'font-weight-thin': 'font-weight-light'">Min profil</span> <v-scroll-x-transition><span v-if="edit" class="font-weight-light"><v-icon>mdi-chevron-right</v-icon> Rediger profil</span></v-scroll-x-transition></span>
+                                <span><span :class="edit ? 'font-weight-thin': 'font-weight-light'">Min profil</span> <v-scroll-x-transition><span v-if="edit && $vuetify.breakpoint.mdAndUp" class="font-weight-light"><v-icon>mdi-chevron-right</v-icon> Rediger profil</span></v-scroll-x-transition></span>
                             </v-col>
                             <v-col
                                     align-self="center"
                                     lg="6"
+                                    v-if="$vuetify.breakpoint.mdAndUp"
                             >
                                 <v-btn v-if="!edit" large class=" float-right white--text secondary" @click="edit = !edit"><v-icon left>mdi-pen</v-icon> Rediger </v-btn>
                                 <ApolloMutation
@@ -42,9 +43,8 @@
 
                 <v-row>
                     <v-col
-                            cols="12"
-                            sm="10"
-                            offset-sm="1"
+                            cols="10"
+                            offset="1"
                             class="elevation-3 pa-0"
                     >
                         <v-card class="" tile>
@@ -125,6 +125,24 @@
                         </v-card>
                     </v-col>
                 </v-row>
+                <v-col
+                        align-self="center"
+                        lg="6"
+                        v-if="$vuetify.breakpoint.mdAndDown"
+                >
+                                <v-btn v-if="!edit" large class=" float-right white--text secondary" @click="edit = !edit"><v-icon left>mdi-pen</v-icon> Rediger </v-btn>
+                                <ApolloMutation
+                                        :mutation="require('../graphql/UpdateUser.gql')"
+                                        :variables="{id: this.userLoggedIn.id, email: this.userLoggedIn.email, firstName: this.userLoggedIn.firstName, lastName: this.userLoggedIn.lastName, password: this.passwordTwo}"
+                                        @done="edit = !edit"
+                                >
+                                    <template v-slot="{ mutate, error}">
+                                        <span v-if="error">{{error}}</span>
+                                        <v-btn v-if="edit" large class="float-right white--text primary" @click="validate() ? mutate : '' "><v-icon left>mdi-plus</v-icon> Aksepter </v-btn>
+                                        <v-btn v-if="edit" large class="mr-4 float-right white--text error" @click="edit = !edit"><v-icon left>mdi-close</v-icon> Avbryt </v-btn>
+                                    </template>
+                                </ApolloMutation>
+                            </v-col>
             </v-form>
         </span>
 </template>

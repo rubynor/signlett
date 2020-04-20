@@ -32,11 +32,11 @@
                         Signert
                     </v-chip>
                 </v-col>
-                <v-col>
+                <v-col v-if="$vuetify.breakpoint.mdAndUp">
                     <p class="font-weight-thin">Sist oppdatert</p>
                     <p class="font-weight-light" :class="compareDate(recObj.updatedAt)">{{recObj.updatedAt}}</p>
                 </v-col>
-                <v-col>
+                <v-col v-if="$vuetify.breakpoint.mdAndUp">
                     <v-tooltip
                             bottom
                     >
