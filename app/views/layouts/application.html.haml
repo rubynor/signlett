@@ -18,30 +18,19 @@
     %link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
     %link{:href => "", :rel => "stylesheet"}
     %link{:href => "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap", :rel => "stylesheet"}/
   %body
     - unless devise_controller?
-      .container-custom
-        .topnav
-          %a{href: "/", class: 'logo'}
-            SIGNLETT
-          = link_to "Logg inn", new_user_session_url, class:'hide-on-med-and-down'
-          = link_to "Om oss", '/about', class:'hide-on-med-and-down'
-          %a.sidenav-trigger.hide-on-large-only{"data-target" => "expand", href: "#"}
-            %i.material-icons menu
-      -#.navbar-fixed
-      -#  %nav.transparent.z-depth-0
-      -#    .nav-wrapper
-      -#      %a.brand-logo{href: "/"}
-      -#        = image_tag("logo.svg", size: '40x40',alt: 'SIGNLETT', class: 'valign-center')
-      -#        %span.valign-center
-      -#          SIGNLETT
-      -#      %a.sidenav-trigger.right{"data-target" => "expand", href: "#"}
-      -#        %i.material-icons menu
-      -#      %ul.hide-on-med-and-down
-      -#        %li.right
-      -#          = link_to "Logg inn", new_user_session_url, class: "active btn btn-rounded"
-      -#        %li.right
-      -#          = link_to "Om oss", '/about', class: "active"
+      .topnav
+        %a{href: "/", class: 'logo hide-on-med-and-down'}
+          = image_tag "logo-blue-horizontal.svg"
+        %a{href: "/", class: 'hide-on-med-and-up logo'}
+          %span
+            signlett
+        = link_to "Logg inn", new_user_session_url, class:'hide-on-med-and-down'
+        = link_to "Om oss", '/about', class:'hide-on-med-and-down'
+        %a.sidenav-trigger.hide-on-large-only{"data-target" => "expand", href: "#"}
+          %i.material-icons menu
 
       %ul.sidenav#expand.left
         %li

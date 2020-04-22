@@ -1,32 +1,35 @@
 .container-box
-  .row.valign-wrapper
-    .col.s12.l4
-      .carousel.carousel-slider.height-100
-        .carousel-fixed-item
-          = link_to "Opprett en bruker", new_user_session_url, class: 'custom-btn'
+  .background-clip
+  .box
+    .row.valign-wrapper
+      .col.s12.l6
+        .carousel.carousel-slider.height-100
+          .carousel-item.text--blue-main
+            %h1
+              Signering har aldri vært lettere!
+            %p
+              %strong Signlett
+              tetter enten-eller gapet mellom “enten dyr online signering eller gjør-det-sjæl epost” og
+              %strong spiller på lag
+              med “epost + print/scan” prosessen
+          .carousel-item.text--blue-main{:href => "#two!"}
+            %h1
+              Prøv oss!
+            %p
+              Vårt produkt er for øyeblikket helt gratis! Du taper ingenting ved å prøve oss i dag.
+      .col.s8.hide-on-med-and-down
+        = image_tag("undraw_arrived_f58d.svg", alt: 'SIGNLETT')
 
-        .carousel-item.white-text
-          %h1
-            Hva gjør vi?
-          %p
-            %strong Signlett
-            tetter enten-eller gapet mellom “enten dyr online signering eller gjør-det-sjæl epost” og
-            %strong spiller på lag
-            med “epost + print/scan” prosessen
-        .carousel-item.white-text{:href => "#two!"}
-          %h1
-            Prøv oss!
-          %p
-            Vårt produkt er for øyeblikket helt gratis! Du taper ingenting ved å prøve oss i dag.
-    .col.l8.hide-on-med-and-down
-      = image_tag("undraw_setup_wizard_r6mr_white.svg", alt: 'SIGNLETT', class: 'valign-center', style: 'float:right;')
+
 
 
 :javascript
    $(document).ready(function() {
     $('.carousel.carousel-slider').carousel({
-    fullWidth: true,
-    indicators: true
+    fullWidth: true
     });
+    setInterval(function() {
+      $('.carousel').carousel('next');
+    }, 6000);
    })
 
