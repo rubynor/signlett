@@ -1,29 +1,27 @@
-.row.height-100
-  / Column for image side of login
-  .col.s1.l4.height-100.valign-wrapper.green.lighten-2.hide-on-med-and-down
-    .container
-      .center-align
-        = image_tag("undraw_forgot_password_gi2d.svg", size: "400x400", :alt => "Image")
-  / Column for right side of login
-  .col.s12.m8.height-100
-    .height-25.hide-on-med-and-down
-    .col.s12.l5.offset-l3
-      - if alert
-        .alert-box.pa-4.dark
-          = alert
-      - if resource.errors.any?
-        .alert-box.pa-4.dark
-          = render "devise/shared/error_messages", resource: resource
-      %h3
-        Glemt passordet?
-      %p
-        Legg til e-post og vi sender deg link for å tilbakestille passordet
-    / Column for tabs and forms
-    .col.m12.l5.offset-l3
-      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-        .input-field
-          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-post"
-        .actions
-          = f.submit "Tilbakestill", class: "btn-flat white-text green lighten-2"
-          = link_to "Tilbake", session_path(resource),
-            class: "btn-flat white-text red lighten-2"
+.container-box
+  .login-clip
+  .box
+    .row.valign-wrapper.height-100
+      .col.s4.hide-on-med-and-down
+        %a{href: "/"}
+          = image_tag("icons.png", size: "400x400", :alt => "Image", href: "/")
+      .col.s12.l6
+        - if alert
+          .alert-box.pa-4
+            = alert
+        - if resource.errors.any?
+          .alert-box.pa-4
+            = render "devise/shared/error_messages", resource: resource
+        %h3
+          Glemt passordet?
+        %p
+          Legg til e-post og vi sender deg link for å tilbakestille passordet
+          / Column for tabs and forms
+        .col.m12.l8
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+            .input-field
+              = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-post"
+            .actions
+              = f.submit "Tilbakestill", class: "btn-flat white-text green lighten-2"
+              = link_to "Tilbake", session_path(resource),
+                class: "btn-flat white-text red lighten-2"

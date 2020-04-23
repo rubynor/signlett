@@ -13,14 +13,14 @@
  *= require_tree .
  *= require_self
  */
-/// MY CUSTOM COLOR VARIABLES
+///COLOR VARIABLES
 $tab-color: #81c784;
 $warning: #FFA726;
 $warning-border: #F57C00;
 $text-main-color: #0c2b5b;
 $link-color: #0c2b5b;
 $link-hover: #3462b1;
-$orange-background: #ffde79;
+$orange-primary: #ffde79;
 
 body, html {
   height: 100%;
@@ -29,23 +29,42 @@ body, html {
 .box{
   position: absolute;
   width: 100%;
+  height: 100%;
   padding: 10%;
   top: 0;
   left: 0;
   img {
-    width: 100%;
-    height: 100%;
+    width: 110%;
   }
 }
 
 .background-clip {
   position: absolute;
-  height: 100%;
+  height: 90%;
+  width: 100%;
+  padding: 3%;
+  background-color: $orange-primary;
+  clip-path: polygon( 0% 0, 0% 100%, 100% 50%, 100% 0);
+}
+
+.login-clip {
+  position: absolute;
+  height: 90%;
   width: 100%;
   float: right;
   padding: 3%;
-  background-color: $orange-background;
-  clip-path: polygon( 0% 0, 0% 100%, 100% 50%, 100% 0);
+  background-color: $orange-primary;
+  clip-path: polygon( 0% 0, 0% 100%, 40% 80%, 50% 20%, 15% 0);
+}
+
+.input-field {
+  input[type=text]:focus{
+    color: $orange-primary;
+  }
+}
+
+.input-field input[type=text]:focus + label {
+  color: #000;
 }
 
 .container-box {
@@ -53,7 +72,7 @@ body, html {
   top: 0;
   left: 0;
   width: 100%;
-  height: 90%;
+  height: 100%;
 }
 
 
@@ -86,29 +105,31 @@ body, html {
 
 // RESTYLING THE TABS USING THE CUSTOM VARIABLE
 .tabs {
+  background-color: rgba(0,0,0,0) !important;
   .tab {
     a {
-      color: $tab-color !important;
-      &.active {color: $tab-color !important;}
-      &:hover {color: $tab-color !important;}
+      color: $text-main-color !important;
+      font-weight: 700 !important;
+      &.active {color: $text-main-color !important;}
+      &:hover {color: $text-main-color !important;}
       &:focus {
-        background-color: rgba($tab-color, 0.1) !important;
+        background-color: rgba($text-main-color, 0.1) !important;
         &.active{
-          background-color: rgba($tab-color, 0.1) !important;
+          background-color: rgba($text-main-color, 0.1) !important;
         }
       }
     }
   }
-  .indicator {background-color: $tab-color !important;}
+  .indicator {background-color: $text-main-color !important;}
 }
 
 
 .alert-box {
   margin-top: 5px;
-  background-color: $warning;
-  opacity: 0.8;
+  background-color: $orange-primary;
   border-radius: 5px;
-  border-left: solid 5px $warning-border;
+  border-left: solid 5px $warning;
+  color: $text-main-color !important;
 }
 
 
@@ -139,13 +160,17 @@ body, html {
 /***********/
 /*FONTS*/
 
-a, h1, h2, h3, h4, h5, p {
+h1, h2, h3, h4, h5, p {
   font-family: 'Montserrat', sans-serif;
+}
+a {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500 !important;
 
 }
 
 p {
-  font-size: 1.5rem !important;
+  font-size: 24px !important;
   font-weight: 300 !important;
 }
 a {
@@ -153,8 +178,14 @@ a {
   font-weight: 500 !important;
 }
 
-h1 {
+h1, h2, h3 ,h4, h5 {
   font-weight: 700 !important;
+}
+
+#error_explanation{
+  p {
+    font-weight: 700 !important;
+  }
 }
 
 .topnav {
@@ -176,10 +207,11 @@ h1 {
 /* NAVIGATION */
 
 .topnav {
-  z-index: 99999;
+  z-index: 1;
   overflow: hidden;
-  position: fixed;
+  position: absolute;
   width: 94%;
+  margin-top: 10px;
   margin-left: 3%;
   margin-right: 6%;
   a {
@@ -187,13 +219,9 @@ h1 {
     display: block;
     color: $link-color;
     text-align: center;
-    padding: 14px 12px;
+    padding: 10px 12px;
     font-size: 17px;
     cursor: pointer;
-    svg {
-      fill: $link-color;
-
-    }
   }
   a:hover {
     color: $link-hover;
@@ -209,17 +237,15 @@ h1 {
 /* BUTTON */
 .custom-btn {
   margin: 0 auto;
-  padding: 12px;
+  padding: 10px 20px !important;
   border-radius: 40px;
   letter-spacing: 1px;
-  color: #fff;
-  font-size: 18px;
-  background-color: #1ECD97;
-  font-family: 'Montserrat', sans-serif;
+  color: #fff !important;
+  background-color: $text-main-color;
   -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
   transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
   &:hover {
-    background-color: #17a77a;
+    background-color: $link-hover;
     color: #fff;
   }
   &:focus {

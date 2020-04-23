@@ -1,66 +1,49 @@
-.row.height-100
-  / Column for image side of login
-  .col.s1.l4.height-100.valign-wrapper.green.lighten-2.hide-on-med-and-down
-    .container
-      .center-align
+.container-box
+  .login-clip
+  .box
+    .row.valign-wrapper.height-100
+      .col.s5.hide-on-med-and-down
         %a{href: "/"}
-          = image_tag("icons.png", size: "400x400", :alt => "Image", href: "/")
-  / Column for right side of login
-  .col.s12.m12.l12.xl8.height-100
-    .height-25.hide-on-med-and-down
-    .col.s12.l5.offset-l3
-      - if alert
-        .alert-box.pa-4.dark
-          = alert
-      - if resource.errors.any?
-        .alert-box.pa-4.dark
-          = render "devise/shared/error_messages", resource: resource
-      %h3
-        Registrer deg!
-      %p
-        Registrer deg nå for å få alt ut av Signlett.
-        Du kan se egne signeringer og se signering andre har sendt til deg!
-    / Column for tabs and forms
-    .col.m12.l5.offset-l3
-      %ul.tabs
-        %li.tab.col
-          %a{:href => "#login"}
-            Logg inn
-        %li.tab.col.indigo-text
-          %a{:href => "#signup"}
-            Registrer deg
-      / Login form
-      #login.section
-        =form_tag session_path(:user) do
-          = text_field_tag 'user[email]', "", placeholder: "E-post"
-          = password_field_tag 'user[password]', "", placeholder: "Passord"
-          %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Logg inn
-          = link_to "Send ny bekreftelse",new_confirmation_path(resource_name), class: "v-spacer"
-          = link_to "Glemt passordet?",new_password_path(resource_name)
-
-      / Signup form
-      #signup.section
-        =form_tag registration_path(:user) do
-          = text_field_tag 'user[first_name]', "", placeholder: "Fornavn"
-          = text_field_tag 'user[last_name]', "", placeholder: "Etternavn"
-          = text_field_tag 'user[email]', "", placeholder: "E-post"
-          = password_field_tag 'user[password]', "", placeholder: "Passord"
-          = password_field_tag 'user[password_confirmation]', "", placeholder: "Bekreft passord"
-          %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Registrer deg
-
-      #reset_confirmation_modal.modal
-        .modal-content
-          %h3 Resend confirmation instructions
-          = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+          = image_tag("undraw_steps_ngvm.svg", :alt => "Image", href: "/")
+      .col.s12.l6
+        - if alert
+          .alert-box.pa-4
+            = alert
+        - if resource.errors.any?
+          .alert-box.pa-4
             = render "devise/shared/error_messages", resource: resource
-            .field
-              = f.label :email
-              %br/
-              = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-            .actions
-            .modal-footer
-              %a.modal-close.red-text.btn-flat{:href => "#!"} Avbryt
-              = f.submit "Send bekreftelse på nytt", class: "blue-text btn-flat"
+        %h3
+          Registrer deg!
+        %p
+          Registrer deg nå for å få alt ut av Signlett.
+          Du kan se egne signeringer og se signering andre har sendt til deg!
+          / Column for tabs and forms
+        .col.m12.l8
+          %ul.tabs
+            %li.tab
+              %a{:href => "#login"}
+                Logg inn
+            %li.tab
+              %a{:href => "#signup"}
+                Registrer deg
+            / Login form
+          #login.section
+            =form_tag session_path(:user) do
+              = text_field_tag 'user[email]', "", placeholder: "E-post"
+              = password_field_tag 'user[password]', "", placeholder: "Passord"
+              %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Logg inn
+              = link_to "Send ny bekreftelse",new_confirmation_path(resource_name), class: "v-spacer"
+              = link_to "Glemt passordet?",new_password_path(resource_name)
+
+            / Signup form
+          #signup.section
+            =form_tag registration_path(:user) do
+              = text_field_tag 'user[first_name]', "", placeholder: "Fornavn"
+              = text_field_tag 'user[last_name]', "", placeholder: "Etternavn"
+              = text_field_tag 'user[email]', "", placeholder: "E-post"
+              = password_field_tag 'user[password]', "", placeholder: "Passord"
+              = password_field_tag 'user[password_confirmation]', "", placeholder: "Bekreft passord"
+              %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Registrer deg
 
 :javascript
     $(document).ready(function(){
