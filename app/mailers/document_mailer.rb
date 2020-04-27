@@ -5,7 +5,6 @@ class DocumentMailer < ApplicationMailer
     @email = params[:email]
     @user = params[:user]
     @document = params[:document]
-
     attachments[@document.file.filename.to_s] = { mime_type: 'application/pdf', content: @document.file.download}
     mail(to: @email,
          reply_to: 'signature-' + @document.email_token.to_s + '@signlett.no',

@@ -2,19 +2,73 @@
 %html
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width", :name => "viewport"}/
     :css
-      /* Email styles need to be inline */
+      .container {
+        text-align: center;
+        max-width: 30%;
+        margin: 0 auto;
+      }
+      .container .logo img {
+        width: 25%;
+        padding: 25px;
+      }
+      .container .main-content img {
+        width: 60%;
+        padding: 25px;
+      }
+
+      .container .main-content {
+        background-color: #ffde79;
+      }
+
+      .main-content {
+        padding: 25px;
+      }
+
+      .main-content h1, p {
+        font-family: 'Lato', sans-serif;
+        font-weight: bolder;
+        color: #0c2b5b;
+      }
+
+      .info-content {
+        background-color: #0068A5;
+        padding: 25px;
+      }
+
+      .info-content p {
+        font-family: 'Lato', sans-serif;
+        font-weight: bolder;
+        color: #fff;
+      }
+      @media only screen and (max-width: 600px) {
+          .container {
+            text-align: center;
+            max-width: 80%;
+            margin: 0 auto;
+          }
+        }
+
   %body
-    %h1
-      Signering gjennomført!
 
-    %p
-      Alle dine mottakere har gjennomført signeringen.
-    %p
-      Vedlagt finner du ferdig signert dokument, eller du kan logge inn for å laste ned dokumentet.
+    .container
+      .logo
+        = image_tag "logo-text.svg"
+      .main-content
+        = image_tag "undraw_online_wishes_dlmr.svg"
+        %h1
+          Signering gjennomført!
 
-    %p
-      Takk for at du brukte våre tjenester
-      %p
-        Vennlig hilsen oss i
-        %strong Signlett
+      .info-content
+        %p
+          Alle dine mottakere har gjennomført signeringen.
+        %p
+          Vedlagt finner du ferdig signert dokument, eller du kan logge inn for å laste ned dokumentet.
+
+        %p
+          Takk for at du brukte våre tjenester
+          %p
+            Vennlig hilsen oss i
+            %strong Signlett
+

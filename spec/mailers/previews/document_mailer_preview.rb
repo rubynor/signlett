@@ -3,4 +3,8 @@ class DocumentMailerPreview < ActionMailer::Preview
   def signature_email
     DocumentMailer.with(user: User.first, email: "someone@example.com", document: Document.first).signature_email
   end
+
+  def signing_complete
+    DocumentMailer.with(user: User.first, email: "someone@example.com", document: Document.first).signing_complete
+  end
 end
