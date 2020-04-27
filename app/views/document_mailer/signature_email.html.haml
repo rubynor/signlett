@@ -54,9 +54,9 @@
 
     .container
       .logo
-        = image_tag "logo-text.svg"
+        = image_tag "logo-text.svg", alt: "signlett"
       .main-content
-        = image_tag "undraw_opened_gi4n.png"
+        = image_tag "undraw_opened_gi4n.png", alt: "SIGNERING!"
         %h1
           Du har en signering fra
           = @user.first_name
