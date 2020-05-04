@@ -15,6 +15,7 @@
  */
 ///COLOR VARIABLES
 $tab-color: #81c784;
+$primary-color: #81c784;
 $warning: #FFA726;
 $warning-border: #F57C00;
 $text-main-color: #0c2b5b;
@@ -45,6 +46,10 @@ body, html {
   padding: 3%;
   background-color: $orange-primary;
   clip-path: polygon( 0% 0, 0% 100%, 100% 50%, 100% 0);
+  @media only screen and (max-width: 600px) {
+    clip-path: none;
+    height: 100%;
+  }
 }
 
 .login-clip {
@@ -55,16 +60,9 @@ body, html {
   padding: 3%;
   background-color: $orange-primary;
   clip-path: polygon( 0% 0, 0% 100%, 40% 80%, 50% 20%, 15% 0);
-}
-
-.input-field {
-  input[type=text]:focus{
-    color: $orange-primary;
+  @media only screen and (max-width: 600px) {
+    background-color: #fff;
   }
-}
-
-.input-field input[type=text]:focus + label {
-  color: #000;
 }
 
 .container-box {
@@ -108,22 +106,37 @@ body, html {
   background-color: rgba(0,0,0,0) !important;
   .tab {
     a {
-      color: $text-main-color !important;
+      color: $primary-color !important;
       font-weight: 700 !important;
-      &.active {color: $text-main-color !important;}
-      &:hover {color: $text-main-color !important;}
+      &.active {color: $primary-color !important;}
+      &:hover {color: $primary-color !important;}
       &:focus {
-        background-color: rgba($text-main-color, 0.1) !important;
+        background-color: rgba($primary-color, 0.1) !important;
         &.active{
-          background-color: rgba($text-main-color, 0.1) !important;
+          background-color: rgba($primary-color, 0.1) !important;
         }
       }
     }
   }
-  .indicator {background-color: $text-main-color !important;}
+  .indicator {background-color: $primary-color !important;}
+}
+
+#login {
+  a {
+    font-size: 16px !important;
+    color: #717171;
+    &:hover {
+      color: #0099cc;
+    }
+    &:first-child {
+      border-right: 1px solid black;
+    }
+  }
 }
 
 
+/****************/
+/*Alert boxes*/
 .alert-box {
   margin-top: 5px;
   background-color: $orange-primary;
@@ -132,9 +145,11 @@ body, html {
   color: $text-main-color !important;
 }
 
-
+.pa-5 {
+  padding: 20px !important;
+}
 .pa-4 {
-  padding: 10px;
+  padding: 10px !important;
 }
 
 .mt-4 {
@@ -202,6 +217,10 @@ h1, h2, h3 ,h4, h5 {
   color: $text-main-color !important;
 }
 
+.primary-green {
+  background-color: $primary-color !important;
+}
+
 
 /***********************/
 /* NAVIGATION */
@@ -219,7 +238,7 @@ h1, h2, h3 ,h4, h5 {
     display: block;
     color: $link-color;
     text-align: center;
-    padding: 10px 12px;
+    padding: 10px 20px;
     font-size: 17px;
     cursor: pointer;
   }
@@ -244,16 +263,18 @@ h1, h2, h3 ,h4, h5 {
 /* BUTTON */
 .custom-btn {
   margin: 0 auto;
-  padding: 10px 20px !important;
+  padding: 10px 20px;
   border-radius: 40px;
   letter-spacing: 1px;
   color: #fff !important;
   background-color: $text-main-color;
+  border: none;
   -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
   transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
   &:hover {
     background-color: $link-hover;
     color: #fff;
+    cursor: pointer;
   }
   &:focus {
     outline: none;

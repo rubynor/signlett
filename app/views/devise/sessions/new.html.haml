@@ -29,21 +29,42 @@
             / Login form
           #login.section
             =form_tag session_path(:user) do
-              = text_field_tag 'user[email]', "", placeholder: "E-post"
-              = password_field_tag 'user[password]', "", placeholder: "Passord"
-              %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Logg inn
+              .input-field
+                %i.material-icons-two-tone.prefix email
+                = text_field_tag 'user[email]', ""
+                = label_tag :email, "E-post"
+              .input-field
+                %i.material-icons-two-tone.prefix vpn_key
+                = password_field_tag 'user[password]', ""
+                = label_tag :password, "Passord"
+              %button.white-text.pa-5.primary-green.custom-btn.width-100.mt-4 Logg inn
               = link_to "Send ny bekreftelse",new_confirmation_path(resource_name), class: "v-spacer"
               = link_to "Glemt passordet?",new_password_path(resource_name)
 
             / Signup form
           #signup.section
             =form_tag registration_path(:user) do
-              = text_field_tag 'user[first_name]', "", placeholder: "Fornavn"
-              = text_field_tag 'user[last_name]', "", placeholder: "Etternavn"
-              = text_field_tag 'user[email]', "", placeholder: "E-post"
-              = password_field_tag 'user[password]', "", placeholder: "Passord"
-              = password_field_tag 'user[password_confirmation]', "", placeholder: "Bekreft passord"
-              %button.btn-flat.white-text.green.lighten-2.width-100.btn-large.mt-4 Registrer deg
+              .input-field
+                %i.material-icons-two-tone.prefix face
+                = text_field_tag 'user[first_name]'
+                = label_tag :first_name, "Fornavn"
+              .input-field
+                %i.material-icons-two-tone.prefix face
+                = text_field_tag 'user[last_name]', ""
+                = label_tag :last_name, "Etternavn"
+              .input-field
+                %i.material-icons-two-tone.prefix email
+                = text_field_tag 'user[email]', ""
+                = label_tag :email, "E-post"
+              .input-field
+                %i.material-icons-two-tone.prefix vpn_key
+                = password_field_tag 'user[password]', ""
+                = label_tag :password, "Passord"
+              .input-field
+                %i.material-icons-two-tone.prefix lock
+                = password_field_tag 'user[password_confirmation]', ""
+                = label_tag :password_confirmation, "Gjenta passord"
+              %button.pa-5.primary-green.custom-btn.white-text.width-100.mt-4 Registrer deg
 
 :javascript
     $(document).ready(function(){

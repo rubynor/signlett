@@ -19,6 +19,7 @@
     %link{:href => "", :rel => "stylesheet"}
     %link{:href => "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap", :rel => "stylesheet"}/
     %link{:href => "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap", :rel => "stylesheet"}/
+  %link{:href => "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp", :rel => "stylesheet"}/
   %body
     .topnav
       %a{href: "/", class: 'logo hide-on-med-and-down'}
@@ -32,7 +33,7 @@
         = link_to "Logg inn", new_user_session_url, class:'hide-on-med-and-down custom-btn'
       = link_to "Om oss", '/about', class:'hide-on-med-and-down'
       %a.sidenav-trigger.hide-on-large-only{"data-target" => "expand", href: "#"}
-        %i.material-icons menu
+        %i.material-icons-two-tone menu
 
     %ul.sidenav#expand.left
       %li
@@ -41,11 +42,11 @@
       %li
         = link_to new_user_session_url, class: "active" do
           %span Logg inn
-          %i.material-icons how_to_reg
+          %i.material-icons-two-tone how_to_reg
       %li
         = link_to '/about', class: "active" do
           %span Om oss
-          %i.material-icons info
+          %i.material-icons-two-tone info
     = yield
 
 :javascript
