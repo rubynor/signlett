@@ -36,14 +36,22 @@
 
     %ul.sidenav#expand.left
       %li
-        = link_to "Logg inn", new_user_session_url, class: "active"
+        %p.name signlett
+        .divider
       %li
-        = link_to "Om oss", '/about', class: "active"
+        = link_to new_user_session_url, class: "active" do
+          %span Logg inn
+          %i.material-icons how_to_reg
+      %li
+        = link_to '/about', class: "active" do
+          %span Om oss
+          %i.material-icons info
     = yield
 
 :javascript
   document.addEventListener('DOMContentLoaded', function() {
     let elems = document.querySelectorAll('.sidenav');
-    let instances = M.Sidenav.init(elems)
+    let options = {edge: 'right'}
+    let instances = M.Sidenav.init(elems, options)
   })
 

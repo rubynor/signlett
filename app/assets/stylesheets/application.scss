@@ -232,6 +232,13 @@ h1, h2, h3 ,h4, h5 {
   }
 }
 
+.sidenav {
+  p {
+    font-family: 'Lato', sans-serif;
+    margin-left: 10px;
+  }
+}
+
 
 /*******************/
 /* BUTTON */
@@ -253,4 +260,9 @@ h1, h2, h3 ,h4, h5 {
   }
 }
 
+/************/
+/*CUSTOM FOR SLIDER*/
+.carousel {
+    min-height: 600px !important;
+}
 
